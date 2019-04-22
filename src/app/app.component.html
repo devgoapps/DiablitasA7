@@ -1,21 +1,212 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
-<router-outlet></router-outlet>
+<div class="main" >
+  
+  <app-sidebar id="menu" ></app-sidebar>
+  
+  <div id="panel" class="main-content" >
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
+
+</div>
+
+<!-- AVISO DE PRIVACIDAD Y TERMINOS Y CONDICIONES -->
+
+<div class="modal fade" role="dialog" id="myModal">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 0;">
+        
+        <div class="modal-title" >
+          <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+          <span style="margin-left: 10px;">Diablitas</span>
+        </div>
+
+      </div>
+      <div class="modal-body alert">
+
+        <div >
+          <h3>TERMINOS Y CONDICIONES</h3><br>
+          <p style="text-align: justify;">
+            Este portal diablitas.com solo publica imágenes de las anunciantes (no sexo), el acuerdo que lleguen las anunciantes y los visitantes no es responsabilidad de diablitas.com es responsabilidad directa de quienes contratan estos espacios publicitarios y de quienes contratan dichos servicios. Este sitio diablitas.com solo ofrece espacios publicitario a las modelos que aqui se anuncian, no tenemos ningún vinculo de ninguna otra índole con las modelos que aqui publican anuncios. Ofrecemos espacios publicitarios, en los cuales cada contratante publica fotos, videos y texto que ellos consideren prudente publicar, siendo los mismos contratantes responsables de las publicaciones que hacen, asi como del contenido que suben. Quien ingrese a este portal diablitas.com lo hace de manera libre y voluntaria, aceptando implícita o explícitamente que es mayor de 18 años o que tiene la mayoría de edad legal desde el país del que ingresa a esta página.
+          </p> 
+          <h3>DETALLE</h3>
+          <div style="text-align: justify; max-height: 300px; overflow: auto; background: #eee; padding: 10px;">
+              <p><b>ACEPTA 1.–</b>Que la definición de la terminología usada en esta página es la siguiente:
+
+              a.- USUARIO VISUALIZANTE de la web: Toda aquella persona o grupo de personas que de manera directa o indirecta vean, visualicen, utilicen y/o escuchen el contenido de la publicidad inmersa en el sitio web identificado como www.diablitas.com Y se le atribuirá la condición de usuario de la Web, en adelante el "Usuario", e implica la aceptación plena y sin reservas de todas y cada una de las disposiciones incluidas en este Aviso Legal en el momento mismo en que el "Usuario" acceda a la Web. En consecuencia, el Usuario debe leer atentamente el Aviso Legal en cada una de las ocasiones en que se proponga utilizar la Web, ya que puede sufrir modificaciones
+              
+              b.- PAGINA DE PRESENTACIÓN: Una pantalla introductoria en la www (world wide web) para dar la bienvenida a los visitantes, que por lo general incluye el "aviso legal" de uso del portal y/o texto destacado o gráficos que lo remiten a información relacionada en otras páginas de la web
+              
+              c.- TERCEROS: Por "terceros" se entenderá a quien contrata exclusivamente con la página la prestación de servicios profesionales de carácter personal.
+              
+              d.- ADULTO: Cualquier persona física que por las leyes vigentes en el lugar en donde acceda al sitio web www.escortsnatural.com es considerada como que ha pasado la adolescencia y que biológicamente ha desarrollado sus funciones vitales, tanto orgánicas como psíquicas.
+              
+              e.- ESTA PAGINA: Nos referimos exclusivamente a la página escortsnatural.com.
+              
+              f.- PÁGINA PERSONAL: una página web o un sitio web externo, hospedado en un lugar ajeno a escortsnatural.com y que pudiese estar vinculado o referenciado dentro de alguna página escortsnatural.com.
+              
+              g.- CANAL PERSONAL: El espacio o página en la cual se muestran datos y fotografías específicos de un anunciante en esta página.
+              
+              h.- DELITO DE TRATA DE PERSONAS: Este delito consiste en el traslado forzoso o por engaño de una o varias personas de su lugar de origen (ya sea a nivel interno de un país o transnacional), la privación total o parcial de su libertad y la explotación laboral, sexual o similar.
+              
+              En el Protocolo para Prevenir, Reprimir y Sancionar la Trata de Personas, especialmente Mujeres y Niños, es definida como "la captación, el transporte, la acogida, o la recepción de personas, recurriendo a la amenaza o al uso de la fuerza y otras formas de coacción, al rapto, el fraude, al engaño, al abuso de poder o de una situación de vulnerabilidad o a la concesión o recepción de pagos o beneficios para obtener el consentimiento de una persona que tenga autoridad sobre otra, con fines de explotación".
+              
+              <p><b>ACEPTA 2.-</b> Que su contenido es estrictamente para los considerados adultos en el país en donde se vea esta página,ejemplo: en la República Mexicana, mayor de 18 años de edad cumplidos, en los Estados Unidos de Norteamérica 21 años… etc.</p>
+              <p><b>ACEPTA 3.-</b> Que no se siente ofendido por el hecho de que esta página contenga desnudos del cuerpo humano, por lo cual si Usted es o se siente ofendido por esa situación, no entre a esta página WEB.</p>
+              <p><b>ACEPTA 4.-</b> Que esta página, únicamente contiene la publicidad de anuncios de personas, mayores de edad en el país en donde se vea la pagina, que ofrecen diversos servicios, de carácter sexual, de manera libre y voluntaria, las cuales previamente han expuesto a esta página que no son objeto de violencia física o moral, engaño o el abuso del poder para someterlas a explotación sexual, trabajos o servicios forzados, esclavitud o practicas análogas a la esclavitud, servidumbre o a la extirpación de un órgano, tejido o sus componentes.</p>
+              <p><b>ACEPTA 2.-</b> Que las personas que ofrecen sus servicios en esta página, expresamente han manifestado a esta página: <br>
+              a.- Ser mayores de 18 años de edad y bajo su más estricta responsabilidad, en la contratación de la publicidad, han exhibido a esta página el original de un documento oficial con fotografía, el cual certifica su mayoría de edad y procedencia.<br>
+              b.- Han expresado tener capacidad para comprender el significado del hecho, consistente en el Delito de Trata de Personas o capacidad para resistirlo.<br>
+              c.- Han señalado, mediante un convenio de publicidad que han acordado leer, comprender y firmar, que en esta página NO han sido, son o pudieran ser, ofendidos o víctimas del Delito de Trata de Personas o similares, en razón de que por su mayoría de edad y su capacidad de comprender el significado de los hechos o capacidad para resistirlo, de manera libre y voluntaria, para sí y por si, ofrecen sus o los servicios que en su canal personal especifican.<br>
+              Para el territorio de los Estados Unidos Mexicanos:
+              
+              ACEPTA 6.- Que tiene pleno conocimiento, por ser de orden público, que el articulo 5 y 6 de la Ley Para Prevenir y Sancionar la Trata de Personas, incluso con su reforma de 15 de marzo de 2011, establece penas mínimas de 6 hasta un máximo de 18 años de prisión, que podrán incrementarse hasta en una mitad, si quien participa en el delito es un servidor público que se vale de la función pública para cometerlo o que tenga parentesco por consanguinidad, afinidad, o civil o habita en el mismo domicilio con la víctima, aunque no existiera parentesco alguno, o sea tutor o curador de la víctima.
+              
+              ARTÍCULO 5.- La persona que contrate publicidad por cualquier medio de comunicación, así como la persona que publique anuncios, que encuadren en alguna de las conductas del delito de trata de personas será sancionada conforme a lo dispuesto en el artículo 6 de esta ley.
+              
+              ARTÍCULO 6.- A quien cometa el delito de trata de personas se le aplicarán:
+              
+              I. De 6 a 12 años de prisión y de 500 a 1000 días multa;
+              
+              II. De 9 a 18 años de prisión y de 750 a 2250 días multa, si el delito es cometido en contra de una persona menor de 18 años de edad o en contra de persona que no tenga capacidad para comprender el significado del hecho o capacidad para resistirlo;
+              
+              III. Las penas que resulten de las fracciones I y II de este artículo se incrementarán hasta en una mitad:
+              
+              a) Si el agente se valiese de la función pública que tuviere o hubiese ostentado sin tener la calidad de servidor público. Además, se impondrá al servidor público la destitución del empleo, cargo o comisión públicos e inhabilitación para desempeñar otro hasta por un tiempo igual al de la pena de prisión impuesta; o cuando la víctima sea persona mayor de 60 de edad; o se trate de persona indígena;
+              
+              b) Cuando el sujeto activo del delito tenga parentesco por consanguinidad, afinidad o civil o habite en el mismo domicilio con la víctima, aunque no existiera parentesco alguno, o sea tutor o curador de la víctima; además, según las circunstancias del hecho, podrá perder la patria potestad, el derecho a alimentos que le correspondiera por su relación con la víctima y el derecho que pudiere tener respecto a los bienes de ésta.
+              
+              Cuando en la comisión del delito de trata de personas concurra otro delito, se aplicarán las reglas del concurso establecidas en el Libro Primero del Código Penal Federal.
+              
+              El consentimiento otorgado por la víctima se regirá en términos del artículo 15 fracción III del Código Penal Federal.
+              
+              ACEPTA 7.- Que la persona que ofrece sus servicios, para los efectos de la publicidad en esta página, expresamente otorga su consentimiento de la manera más amplia, para los efectos a que se refiere el artículo 15, fracción 3ª del Código Penal Federal que dice:
+              
+              Articulo 15. El delito se excluye cuando:
+              
+              III. Se actúe con el consentimiento del titular del bien jurídico afectado, siempre que se llenen los siguientes requisitos:
+              
+              a) que el bien jurídico sea disponible; b) que el titular del bien tenga la capacidad jurídica para disponer libremente del mismo; y c) que el consentimiento sea expreso o tácito y sin que medie algún vicio; o bien, que el hecho se realice en circunstancias tales que permitan fundadamente presumir que, de haberse consultado al titular, este hubiese otorgado el mismo;
+              
+              ACEPTA 8.- Que no existe vinculación de ninguna naturaleza, de la página escortsnatural.com con la página personal vinculada dentro del canal personal de quienes, por medio de este, ofrecen sus servicios, aun de carácter sexual.
+              
+              ACEPTA 9.- Que La página personal de quien ofrece sus servicios no tiene enlace o vinculo alguno con escortsnatural.com, incluso a través de terceras personas, por lo cual la pagina principal escortsnatural.com, no otorgo, previamente y ni se entero del contenido, por ende tampoco autorizó, el espacio y contenido de la página personal cuya temática es, o puede ser, totalmente distinta a la página principal de escortsnatural.com.
+              
+              ACEPTA 10.- Que si bien es cierto, que escortsnatural.com anuncia personas desnudas y proporciona datos para su localización, la página NO OFRECE SERVICIOS DE PROSTITUCIÓN, no obstante, para el caso de que en las PAGINAS PERSONALES de esas personas de quienes ofrecen servicios se trate de prostitución, las mismas no pertenecen escortsnatural.com, porque son externas, y residen en un sitio ajeno a los sistemas electrónicos de escortsnatural.com.
+              
+              ACEPTA 11.- Que escortsnatural.com no tiene participación alguna en los ofrecimientos de servicios sexuales que pudieran llegar a hacerse por las personas anunciadas en sus páginas personales.
+              
+              ACEPTA 12.- Que escortsnatural.com a través de su página no realiza ni fomenta actividad alguna de prostitución. Su práctica, en su caso, es responsabilidad exclusiva y personal, de manera libre y voluntaria de quien la ofrece y de quien la contrata de manera gratuita o con remuneración económica.
+              
+              ACEPTA 13.- Que escortsnatural.com es respetuosos de la legislación mexicana, expresa su apoyo a la autoridad o autoridades que se encuentren facultadas para que realicen sus actividades de investigación, procesamiento y sanción por violación a disposiciones administrativas y la comisión de delito o delitos, específicamente, en relación a todos los considerados como delito de trata de personas.
+              
+              ACEPTA 14.- Que cualquier circunstancia que estime escortsnatural.com podría constituir conductas administrativas o penales, se reserva la potestad de eliminar total o parcialmente la información publicada en el canal personal.
+              
+              ACEPTA 15.- Que usted, como el usuario vidente, conoce el contenido de todas y cada una de las disposiciones para la publicidad que solicita de los servicios que ofrece, por tanto, al ingresar a este sitio web, expresa y tácitamente, acepta su contenido y las consecuencias legales para el caso de no cumplir con las mismas.
+              
+              Por todo lo anterior, esta página, no acepta y no contiene Contrato de Publicidad alguno, ni constituye Anuncio general o especifico, en relación a las conductas (acciones u omisiones) precisadas en el punto 3 que antecede. Toda vez que esta página no promueve, solicita, ofrece, facilita, consigna, traslada, entrega o recibe, para sí o para un tercero, a una persona por medio de la violencia física o moral, engaño o el abuso del poder, para someterla a explotación sexual, trabajos o servicios forzados, esclavitud o practicas análogas a la esclavitud, servidumbre o la extirpación de un órgano, tejido o sus componentes. Por ello escortsnatural.com informa a los usuarios de su página que cuenta con atención gratuita para su orientación legal en caso de ser víctimas del delito de trata de personas, conducta que repudia abiertamente.
+              
+              NOTA: NO CONTINUE A MENOS QUE CONOZCA LAS LEYES LOCALES APLICABLES DE SU PAÍS PARA ESTE TIPO DE MATERIAL DIRIGIDO A UN PUBLICO ADULTO, Y SE CERCIORE QUE BAJO NINGUNA MANERA ESTA PROHIBIDO POR SUS REGULACIONES LOCALES LA VISUALIZACION DE DICHO MATERIAL. Al aceptar este acuerdo, certifico como CIERTO y VERDADERO lo siguiente:
+              
+              1. Tengo 18 años de edad o soy mayor de 18 años.
+              
+              2. El material dirigido a una audiencia adulta y enfocada a la sexualidad que estoy a punto de acceder es para mí uso personal y jamás expondré a menores de edad a dicho material.
+              
+              3. Conozco y acepto que como adulto, en atención al contenido e interpretación del artículo de la Constitución Política de mi país de origen en el que se me da derecho al libre uso de los medios de comunicación, tengo el derecho innegable para leer o ver cualquier tipo de material o contenido que así convenga a mis gustos e intereses y que el material e imágenes contenidos en este Sitio Web no son obscenos u Ofensivos para el o la suscrita, de ninguna manera, ni podrán ser en el futuro interpretados por el o la suscrita como obscenos u ofensivos.
+              
+              4 . El ver, leer o descargar el material o imágenes que se almacenan en este Sitio Web no violan las leyes comunitarias de mi lugar de residencia (Calle, Colonia, Ciudad, Estado o País).
+              
+              5. Yo soy TOTALMENTE responsable de cualquier declaración falsa y responsable de cualquier acción legal que se suscitase por ver, leer o descargar por el o la suscrita el material contenido en este sitio Web y que escortsnatural.com y sus afiliados no podrán ser señalados como culpables o responsables de cualquier situación legal que se suscitase por el o la suscrita por ver, leer o descargar el contenido de este Sitio Web.
+              
+              6. Reconozco y acepto que colocar cualquier tipo de publicidad o liga de dirección a internet, en este Sitio Web y/o en cualquiera de sus subcategorías o subpáginas – Sin el consentimiento por escrito de escortsnatural.com está prohibido y puede resultar en el infringimiento de los derechos de autor y por consiguiente un procedimiento legal. Esta Página de Advertencia constituye un ACUERDO LEGAL, vía policitación, entre escortsnatural.com y usted, el usuario visualizante de la página, así como cualquier entidad corporativa o de negocios en la cual usted, el usuario vidente de esta página, tenga cualquier tipo de participación y/o intereses legales. Si alguna porción de este ACUERDO es considerado inexigible (carente de fuerza ejecutoría) por alguna Corte o Tribunal con Jurisdicción y competencia, NO afectara de ninguna manera ni BAJO NINGUNA CIRCUNSTANCIA la exigibilidad o fuerza ejecutoria de las demás partes de este ACUERDO. Se le informa que:
+              
+              I.- Todas las declaraciones legales y/o estatutarias necesarias para el buen y legal funcionamiento de este sitio web hechas por escortsnatural.com y su dueño y afiliados, podrán ser encontradas en este Sitio Web (tales como Políticas de Privacidad, Términos y Condiciones de uso, Spam y Política De Reembolso, Acuerdos, Documentos para análisis…etc, de manera ejemplificativa y no limitativa)
+              
+              II.- ESTE ACUERDO SE ENCUENTRA EN EL IDIOMA ESPAÑOL, Y NO ACEPTAREMOS NINGUN TIPO DE ACCION LEGAL O QUEJA QUE SE ORIGINEN DEL MALENTENDIMIENTO DE ESTE CONTRATO COMO RESULTADO DE UNA MALA TRADUCCION.
+              
+              Escorts Natural no se hace responsable por las ofertas y/o contenidos de sus anunciantes.
+            </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" style="background: #FD297B; color: #fff;" (click)="accept()" >Si, Acepto</button>
+        <button type="button" class="btn btn-default" >No, Acepto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--div class="modal fade" role="dialog" id="myLevels">
+    <div class="modal-dialog modal-lg" >
+      <div class="modal-content">
+        <div class="modal-header" style="padding: 0;">
+          
+          <div class="app-name" >
+            <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+            <span style="margin-left: 10px;">Diablitas</span>
+          </div>
+  
+        </div>
+        <div class="modal-body" style="padding: 5px; padding-top: 25px;">
+            <div class="row" style="margin: 10px;">
+                <div class="col-sm-4 col-md-4">
+                  <div style="border: 1px solid #1D1F20;">
+                    <div style="color: #fff; padding: 10px; background: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(179,179,179,1) 45%, rgb(212, 212, 212) 50%, rgba(179,179,179,1) 65%, rgba(0,0,0,1) 100%);">
+                      <span style="display: block; font-size: 18px;">DIAMOND:</span><br>
+                      <span>Solo para nuestros usuarios más exigentes que buscan llevar sus experiencias a otro nivel.</span>
+                    </div>
+        
+                    <div style="padding: 10px; text-align: justify; background: #fff; height: 300px;" >
+                      <span >
+                        - El perfil ha sido validado con un reconocimiento facial por medio de una fotografia tomada en el instante del registro 
+                        y comparada contra las fotografias proporcionadas por el usuario.<br><br>
+                        - Verificación manual de fotografias para evitar imagenes "FAKE"<br><br>
+                        - Sección especial (limitado a 20 lugares)<br><br>
+                        - Entrevista personalizada para verificación de imagen e información de perfil.
+                      </span>  
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                  <div style="border: 1px solid #1D1F20;">
+                      <div style="color: #fff; padding: 10px; background: linear-gradient(45deg, rgb(255, 153, 0), rgb(255, 238, 0));;">
+                        <span style="display: block; font-size: 18px;">GOLD:</span><br>
+                        <span>Para nuestros usuarios que buscan experimentar una nueva experiencia.</span>
+                      </div>
+        
+                      <div style="padding: 10px; text-align: justify; background: #fff; height: 300px;" >
+                        <span >
+                            - El perfil ha sido validado con un reconocimiento facial por medio de una fotografia tomada en el instante del registro 
+                            y comparada contra las fotografias proporcionadas por el usuario.<br><br>
+                            - Verificación manual de fotografias para evitar imagenes "FAKE"<br><br>
+                            - Sección especial<br><br>
+                        </span>  
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <div style="border: 1px solid #1D1F20;">
+                        <div style="color: #fff; padding: 10px; background: linear-gradient(45deg, rgb(73, 73, 73), rgb(255, 255, 255));">
+                          <span style="display: block; font-size: 18px;">SILVER:</span><br>
+                          <span>Para los curiosos que buscan vivir una experiencia que rompa con la rutina.</span>
+                        </div>
+        
+                        <div style="padding: 10px; text-align: justify; background: #fff; height: 300px;" >
+                          <span >
+                            - El perfil ha sido validado con un reconocimiento facial por medio de una fotografia tomada en el instante del registro y comparada contra las fotografias proporcionadas por el usuario.
+                          </span>  
+                        </div>
+                      </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div-->

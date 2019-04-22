@@ -1,0 +1,132 @@
+<div style="position: relative;" >
+  <div class="navbar" >
+    <div class="app-brand">
+      <div class="toggle-container" >
+        <div class="toggle-btn"></div>
+        <div class="toggle-btn"></div>
+        <div class="toggle-btn"></div>
+      </div>
+
+      <div style="text-align: right; cursor: pointer;" (click)="goToHome()">
+        <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+        <span style="margin-left: 10px;">Diablitas</span>
+      </div>
+      
+    </div>
+
+    <div class="app-menu" *ngIf="!loggedIn">
+      <a href="javascript: void(0)" (click)="goToRegister()" >Publica tu anuncio</a>
+      <a href="javascript: void(0)" (click)="goToLogin()" >Iniciar sesión</a>
+      <a href="javascript: void(0)" class="galery" (click)="goToHome()" >Todas las chicas</a>
+    </div>
+    <div class="app-menu" *ngIf="loggedIn">
+      <a href="javascript: void(0)" (click)="logout()" >Cerrar sesión</a>
+      <a href="javascript: void(0)" class="galery" (click)="saveProfile()" >Guardar cambios</a>
+    </div>
+
+
+  </div>
+</div>
+
+
+<!-- MODAL LOGIN -->
+
+<div class="modal fade" role="dialog" id="login">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      
+      <div class="modal-body" style="padding: 0px;">
+
+        <div class="login-content" >
+
+          <div class="back-img" >
+            <div class="text-img-content" >
+              <span class="text-img" >Bienvenida Diablita</span>
+            </div>
+            <img src="https://c6oxm85c.cloudimg.io/cdno/n/q85/https://az617363.vo.msecnd.net/imgmodels/models/md40000569/1cc9161e-9b01-4b80-8bfe-b1e38e2c22b7_thumb.jpg" draggable="false" />
+          </div>
+
+          <div class="login-form-content" *ngIf="isLogin">
+            <div style="text-align: right; padding-right: 15px; padding-top: 15px;">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="login-logo" >
+              <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" draggable="false" />
+              <span class="logo-text">Diablitas</span>
+            </div>
+
+            <form id="login-form" #form="ngForm" (ngSubmit)="form.valid ? login(): ''" autocomplete="off" novalidate >
+              <div style="margin-bottom: 25px;">
+                <input type="email" [(ngModel)]="credentials.Email" #femail="ngModel" name="femail" required [pattern]="emailPattern" placeholder="Introduce tu email" class="login-control" />
+                
+                <div class="validation" *ngIf="form.submitted && femail.errors" >
+                  <span [hidden]="!femail.errors.required" >
+                    El email es requerido.
+                  </span>
+                  <span [hidden]="!femail.errors.pattern" >
+                    El formato del email no es valido.
+                  </span>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 40px" >
+                <input type="password" [(ngModel)]="credentials.PasswordEncrypt" #fpassword="ngModel" name="fpassword" required placeholder="Introduce tu contraseña" class="login-control" />
+
+                <div class="validation" *ngIf="form.submitted && fpassword.errors" >
+                  <span [hidden]="!fpassword.errors.required" >
+                    La contraseña es requerida.
+                  </span>
+                </div>
+              </div>
+              
+              <div class="password-link">
+                  <a style="color: #FD297B;" (click)="isLogin = false;" >¿Olvidaste tu contraseña?</a>
+              </div>
+
+              <div style="display: flex; justify-content: center;">
+                <button type="submit" class="login-btn" >Iniciar sesión</button>
+              </div>
+            </form>
+
+          </div>
+
+          <div class="login-form-content" *ngIf="!isLogin" >
+            
+            <div style="text-align: right; padding-right: 15px; padding-top: 15px;">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="login-logo" style="margin-bottom: 50px;">
+              <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" draggable="false" />
+              <span class="logo-text">Diablitas</span>
+            </div>
+
+            <form #form="ngForm" (ngSubmit)="form.valid ? login(): ''" autocomplete="off" novalidate >
+              <div style="margin-bottom: 40px;">
+                <input type="email" [(ngModel)]="forgotCredentials" #fforgotEmail="ngModel" name="fforgotEmail" required placeholder="Introduce tu email" class="login-control" />
+                
+                <div class="validation" *ngIf="form.submitted && fforgotEmail.errors" >
+                  <span [hidden]="!fforgotEmail.errors.required" >
+                    El email es requerido.
+                  </span>
+                </div>
+              </div>
+
+      
+              <div class="password-link">
+                <a style="color: #FD297B;" (click)="isLogin = true;"><i class="fa fa-arrow-left"></i> Iniciar sesión</a>
+              </div>
+
+              <div style="display: flex; justify-content: center;">
+                <button type="submit" class="login-btn" >Enviar contraseña</button>
+              </div>
+            </form>
+  
+          </div>
+
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,279 @@
+<div class="register-main" >
+
+  <!--div>
+      <table align="center" border="0" cellpadding="0" cellspacing="0" width="700" >
+        <tbody style="background: #fff; text-align: center;">
+          <tr>
+            <td style="background: #000; position: relative;">
+              <img src="https://res.cloudinary.com/dieggo/image/upload/v1555454065/img1_sd7a1r.jpg" style="width: 100%; height: 250px; object-fit: cover; object-position: center; opacity: 0.8;" />
+              <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; padding: 30px 0px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgb(0, 0, 0, 0.4); width: 100%; height: 250px; font-size: 80px; color: #fff; font-weight: 250;">
+                <span style="width: 100%;">Bienvenida a </span>
+                <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="50" height="60" /><span style="border-bottom: 4px solid #FD297B; margin-left: 10px; font-size: 55px;">Diablitas</span>
+              </div>
+            </td>
+          </tr>
+            
+          <tr>
+            <td style="padding: 50px 20px;">
+              <div style="margin-bottom: 50px;">
+                  <span style="font-size: 30px; margin-bottom: 50px; display: block;"><h1 style="font-weight: bold;">Ya casi esta lista tu cuenta.</h1><br>Por favor da click en el siguiente enlace para validar tu correo.</span>
+                  <button style="color: #fff; background: #FD297B; padding: 10px 25px; border-radius: 30px; outline: none; border: 1px solid #fff; font-size: 30px;">Validar mi cuenta</button>
+              </div>
+              
+              <span style="font-size: 16px;">Si desea dar de baja su cuenta podra realizarlo en cualquier momento dando click <a>AQUI</a></span>
+            </td>
+          </tr>
+            
+          <tr>
+            <td style="width: 100%; background: #101010; display: flex; flex-direction: column; align-items: center;" >
+              <div style="text-align: center; padding: 30px; color: #ccc; font-size: 16px;">
+                <small>Diablitas es un portal que ofrece exclusivamente espacios publicitarios <b>NO ES UNA AGENCIA</b>. Todo su contenido visual, texto y teléfonos es de única y exclusiva responsabilidad de los anunciantes y de ninguna manera la empresa conoce, participa o interfiere en forma o manera alguna en las actividades que estas realizan. El acuerdo al que lleguen las chicas con los visitantes de este sitio es responsabilidad de ambos; quedando Diablitas completamente fuera y sin conocimiento de dicho acuerdo.</small>
+              </div>
+            
+              <div style="width: 100%; text-align: center; background: #000; color: #ccc; padding: 10px 0px;">
+                <span>Copyrights 2019 - Diablitas</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div-->
+
+  <div class="register-content">
+
+    <div class="steps-content">
+      <div class="step-line"></div>
+      <div style="text-align: center;" >
+        <span class="step" ><i class="fas fa-user" ></i></span><br>
+        <span class="step-text" [ngClass]="{ 'step-active': step == 1 }" >Información general</span>
+      </div>
+      <div style="text-align: center;" >
+        <span class="step" ><i class="fa fa-diamond" ></i></span><br>
+        <span class="step-text" [ngClass]="{ 'step-active': step == 2 }" >Elige tu membresia</span>
+      </div> 
+      <div style="text-align: center;" >
+        <span class="step" ><i class="fas fa-clipboard-check" ></i></span><br>
+        <span class="step-text" [ngClass]="{ 'step-active': step == 3 }" >Validación cuenta</span>
+      </div>
+    </div>
+
+    <div >
+
+      <div *ngIf="step == 1" class="register-panel" >
+        <form #form="ngForm" (ngSubmit)="form.valid ? nextStep(): ''" novalidate autocomplete="off">
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <label class="required">Nombre</label>
+              <input type="text" [(ngModel)]="register.Name" name="fname" #fname="ngModel" required [pattern]="textPattern" class="register-control" placeholder="Ejem. Karlita" />
+
+              <div class="validation" *ngIf="form.submitted && fname.errors" >
+                <span [hidden]="!fname.errors.required" >
+                  El nombre es requerido.
+                </span>
+                <span [hidden]="!fname.errors.pattern" >
+                  El nombre solo permiten letras y numeros
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+                <label class="required">Número de contacto</label>
+                <input type="text" [(ngModel)]="register.Profile.Phone" minlength="10" maxlength="14" name="fphone" #fphone="ngModel" required class="register-control" mask="(00) 0000-0000" placeholder="Ejem. (55) 5893-0325" />
+
+                <div class="validation" *ngIf="form.submitted && fphone.errors" >
+                  <span [hidden]="!fphone.errors.required" >
+                    El número de contacto es requerido.
+                  </span>
+                  <span [hidden]="!fphone.errors.minlength" >
+                    El número de contacto debe tener 10 caracteres.
+                  </span>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <label class="required">Estado</label>
+              <ng-select
+                [items]="states"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                bindLabel="Description"
+                bindValue="KeyState"
+                name="fstate"
+                #fstate="ngModel"
+                class="custom"
+                placeholder="Selecciona una ciudad"
+                notFoundText="No se encontraron ciudades."
+                (change)="getCities()"
+                required
+                [(ngModel)]="register.Profile.KeyState" >
+              </ng-select>
+              
+              <div class="validation" *ngIf="form.submitted && fstate.errors" >
+                <span [hidden]="!fstate.errors.required" >
+                  El estado es requerido.
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+              <label class="required">Ciudad</label>
+              <ng-select
+                [items]="cities"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                bindLabel="Description"
+                bindValue="KeyTown"
+                name="fcity"
+                #fcity="ngModel"
+                class="custom"
+                placeholder="Selecciona una ciudad"
+                notFoundText="No se encontraron ciudades."
+                (change)="getZones()"
+                required
+                [(ngModel)]="register.Profile.KeyTown" >
+              </ng-select>
+              
+              <div class="validation" *ngIf="form.submitted && fcity.errors" >
+                <span [hidden]="!fcity.errors.required" >
+                  La cuidad es requerida.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12 col-md-12">
+              <label class="required">Zonas en las que trabajas</label>
+
+              <tag-input [(ngModel)]='register.Profile.Zones' name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
+                <tag-input-dropdown [autocompleteItems]="zones" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+              </tag-input>
+
+              <div class="validation" *ngIf="form.submitted && fzones.errors" >
+                <span [hidden]="!fzones.errors.required" >
+                  Las zonas son requeridas.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6 col-md-6">
+              <label class="required">Email</label>
+              <input type="email" [(ngModel)]="register.Email" name="femail" #femail="ngModel" required [pattern]="emailPattern" class="register-control" placeholder="Ejem. karlita027@gmail.com" />
+
+              <div class="validation" *ngIf="form.submitted && femail.errors" >
+                <span [hidden]="!femail.errors.required" >
+                  El email es requerido.
+                </span>
+                <span [hidden]="!femail.errors.pattern" >
+                  El formato del email no es valido.
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+              <label class="required">Contraseña</label>
+              <div style="display: flex; justify-content: space-around; align-items: center;" >
+                <input [type]="showPassword ? 'text': 'password'" [(ngModel)]="register.PasswordEncrypt" name="fpassword" #fpassword="ngModel" required  class="register-control" />
+              
+                <button type="button" class="btn btn-default" (click)="showPassword = !showPassword" style=" margin-left: 5px; height: 50px;">
+                  <i style="font-size: 18px;" [ngClass]="showPassword ? 'fa fa-eye-slash': 'fa fa-eye'"></i><br><small>{{ showPassword ? 'Ocultar': 'Mostrar' }}</small>
+                </button>
+              </div>
+
+              <div class="validation" *ngIf="form.submitted && fpassword.errors" >
+                <span [hidden]="!fpassword.errors.required" >
+                  La contraseña es requerida.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: right; padding-top: 20px;">
+            <button class="register-button" >Siguiente <i class="fa fa-angle-right"></i></button>
+          </div>
+          
+        </form>
+      </div>
+
+      <div *ngIf="step == 2" class="register-panel" >
+
+        <div style="text-align: center; color: #FD297B; margin-bottom: 20px; font-size: 20px;">
+          <span>Membresia seleccionada:</span><br>
+          <span style="font-size: 32px; font-weight: bold;">{{ register.Profile.IdPackage == 3 ? 'Diamond': register.Profile.IdPackage == 2 ? 'Gold': register.Profile.IdPackage == 1 ? 'Silver': '' }}</span>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-md-4">
+            <ul class="price" [ngClass]="{ 'selected': register.Profile.IdPackage == 1 }" >
+              <li class="header" style="background: linear-gradient(45deg, rgb(73, 73, 73), rgb(255, 255, 255));"><i class="fas fa-coins"></i> Silver</li>
+              <li class="grey">$ 500 / <small>mensual</small></li>
+              <li>Posicionamiento general</li>
+              <li>Sesión de fotos con costo adicional</li>
+              <li>limitado a 5 fotos y 2 videos</li>
+              <li >
+                <button class="register-button" (click)="register.Profile.IdPackage = 1" >Seleccionar</button>
+              </li>
+            </ul>
+          </div>
+            
+          <div class="col-sm-4 col-md-4">
+            <ul class="price" [ngClass]="{ 'selected': register.Profile.IdPackage == 2 }" >
+              <li class="header" style="background: linear-gradient(45deg, rgb(255, 153, 0), rgb(255, 238, 0));"><i class="fas fa-crown"></i> Gold</li>
+              <li class="grey">$ 1,000 / <small>mensual</small></li>
+              <li>Posicionamiento preferencial</li>
+              <li>Sesión de fotos con costo adicional</li>
+              <li>fotos y videos ilimitados</li>
+              <li >
+                <button class="register-button" (click)="register.Profile.IdPackage = 2" >Seleccionar</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-sm-4 col-md-4">
+            <ul class="price" [ngClass]="{ 'selected': register.Profile.IdPackage == 3 }" >
+              <li class="header" style="background: linear-gradient(to right, rgba(0,0,0) 0%, rgb(165, 165, 165) 50%, rgba(0,0,0) 100%);"><i class="fa fa-diamond"></i> Diamond</li>
+              <li class="grey">$ 1,500 / <small>mensual</small></li>
+              <li>Posicionamiento premium</li>
+              <li>¡Sesión de fotos totalmente gratuita!</li>
+              <li>fotos y videos ilimitados</li>
+              <li >
+                <button class="register-button" (click)="register.Profile.IdPackage = 3" >Seleccionar</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="text-align: right; padding-top: 20px;">
+          <button class="register-button" (click)="step = 1"><i class="fa fa-angle-left"></i> Anterior</button>
+          <button class="register-button" (click)="createUser()">Crear cuenta <i class="fa fa-angle-right"></i></button>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="step == 3" class="register-panel" >
+
+        <div style="text-align: center;">
+          <span class="big-icon"><i class="fas fa-clipboard-check" style="color: #fff;"></i></span><br>
+          <span class="congrats">Validación de la cuenta</span>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0px;">
+          <span class="register-text">Ya casi terminamos tu regitro solo nos falta validar tu cuenta por lo que se te ha enviado un correo electronico para terminar tu registro.</span>
+        </div>
+
+        <div style="text-align: right; padding-top: 20px;">
+          <button class="register-button" (click)="goToHome()"><i class="fa fa-check-square-o"></i> Terminar</button> 
+        </div>
+      </div>
+    
+    </div>
+
+  </div>
+
+  
+</div>

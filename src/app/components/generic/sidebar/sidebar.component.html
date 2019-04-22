@@ -1,0 +1,22 @@
+<div class="sidebarContent" >
+  
+  <div class="app-name">
+    <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+    <span style="margin-left: 10px;">Diablitas</span>
+  </div>
+  
+  <div class="sidemenu" [hidden]="loggedIn">
+    <a href="javascript: void(0)" class="opt" (click)="goToLogin()" ><i class="fa fa-sign-in icon"></i> Iniciar sesión</a>
+    <a href="javascript: void(0)" class="opt" (click)="goToRegister()"  ><i class="far fa-newspaper icon"></i> Publica tu anuncio</a>
+    <a href="javascript: void(0)" class="opt" (click)="goToHome()"><i class="fa fa-heart icon"></i> Todas las chicas</a>
+  </div>
+
+  <div class="sidemenu" [hidden]="!loggedIn">
+    <a href="javascript: void(0)" class="opt" (click)="saveProfile()" ><i class="far fa-save icon"></i> Guardar cambios</a>
+    <a href="javascript: void(0)" class="opt" (click)="logout()" ><i class="fas fa-sign-out-alt icon"></i> Cerrar sesión</a>
+  </div>
+
+  <footer >
+    <small>Copyrights 2019 - Diablitas</small>
+  </footer>
+</div>

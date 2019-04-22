@@ -1,0 +1,24 @@
+<div style="padding-top: 100px;">
+
+
+  <div class="activation-content" >
+
+    <div style="text-align: center;" *ngIf="validate">
+      <span class="big-icon"><i class="fas fa-glass-cheers" ></i></span><br>
+      <span class="activation-title">!Felicidades Diablita¡</span>
+      <span class="activation-text">Ahora podras entrar a tu perfil y terminar de llenar tu información, <b>Pero recuerda que para que tu anuncio sea activado y pueda ser visto por nuestros usuarios debes agendar una cita para validar tu información y recibir los detalles del pago.</b><br><br>El teléfono de contacto e información para agendar tu cita te sera enviado a tu correo electronico.</span>
+      
+      <button type="button" class="activation-btn" (click)="goToLogin()">Iniciar Sesión</button>
+    </div>
+
+    <div style="text-align: center;" *ngIf="!validate">
+      <span class="big-icon"><i class="fas fa-heart-broken" ></i></span><br>
+      <span class="activation-title">!Ocurrió un problema¡</span>
+      <span class="activation-text">No hemos podido validar tu cuenta, asegurate de haber hecho click en el correo que se te envio para validar tu cuenta e intertalo de nuevo.</span>
+      
+      <button type="button" class="activation-btn" (click)="refresh()">Reintentar</button>
+    </div>
+    
+  </div>
+
+</div>

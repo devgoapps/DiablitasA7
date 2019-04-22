@@ -1,0 +1,207 @@
+<div style="height: 100%;">
+    <!-- NAVBAR -->
+    <div >
+      <!--div class="navbar" >
+        <div class="app-brand">
+          <div class="toggle-container" >
+            <div class="toggle-btn"></div>
+            <div class="toggle-btn"></div>
+            <div class="toggle-btn"></div>
+          </div>
+  
+          <div style="text-align: right;">
+            <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+            <span style="margin-left: 10px;">Diablitas</span>
+          </div>
+          
+          
+        </div>
+    
+        <div class="app-menu">
+          <a href="javascript: void(0)" (click)="goToRegister()">Publica tu anuncio</a>
+          <a href="javascript: void(0)" (click)="openLoginModal()">Iniciar sesión</a>
+          <a href="javascript: void(0)" class="galery" (click)="moveToGalery()">Todas las chicas</a>
+        </div>
+      </div-->
+    
+      <ngu-carousel #bannerCarousel [inputs]="carouselBanner" [dataSource]="fullModels" >
+        <ngu-item NguCarouselItem *nguCarouselDef="let item; let j = index"  >
+          <div class="card-full" >
+            <img  [src]="item.img" draggable="false" />
+            <div class="info-container">
+              <span class="slogan">{{ item.name }} - {{ item.city }}</span>
+              <span class="slogan-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+              <button class="play-btn" (click)="goToProfile()" >Visitar perfil</button>
+            </div>
+            <div class="overlay"></div>
+          </div>
+        </ngu-item>
+    
+        <button NguCarouselPrev class='left-banner'><i class="fa fa-angle-left"></i></button>
+        <button NguCarouselNext class='right-banner'><i class="fa fa-angle-right"></i></button>
+        
+        <div style="text-align: center; padding: 10px 0px;" NguCarouselPoint >
+          <span *ngFor="let item of bannerCarousel.pointNumbers; let i = index;" >
+            <span class="dot" [ngClass]="{ 'active-dot': i == bannerCarousel.activePoint }" (click)="bannerCarousel.moveTo(i)"></span>
+          </span>
+        </div>
+      </ngu-carousel>
+    </div>
+  
+    <!-- MAIN SECTION -->
+  
+    <div style="padding-top: 25px;">
+
+      <div class="info-content">
+        <span >
+          En <span class="info-mark">Diablitas</span> encontrarás a las escorts independientes <span class="info-mark">más lindas y atrevidas de todo México</span>, pero eso no es todo,
+          en <span class="info-mark">Diablitas</span> nos preocupamos por <span class="info-mark">tú seguridad</span> por lo que el equipo de <span class="info-mark">Diablitas</span> se asegura de validar mediante una entrevista que la modelo sea mayor de edad y que todos los datos y fotografías publicadas sean <span class="info-mark">100% reales</span> 
+          antes de activar su anuncio y que pueda ser visto por todos nuestros usuarios, lo cual nos permite <span class="info-mark">garantizarte que todas las modelos anunciadas son 100% reales.</span>
+        </span>
+      </div>
+  
+      <div class="content-section" >
+        <div class="title-section" >
+          <i class="fa fa-diamond" ></i> <span style="border-bottom: 3px solid #FD297B;">Diablitas Diamond.</span>
+        </div>
+      </div>
+  
+      <div  >
+        <ngu-carousel #tileCarousel [inputs]="carouselTile" [dataSource]="diamondModels" id="diamond">
+          <ngu-tile *nguCarouselDef="let item; let i = index" style="padding: 3px;" >
+            <div class="card-diamond" >
+              <span class="like">Certificación <i class="fa fa-diamond"></i></span>
+              
+              <div class="imgs">
+                <img class="bottom"  [src]="item.imgs[1]" draggable="false"  />
+                <img class="top"  [src]="item.imgs[0]" draggable="false"  />
+              </div>
+              
+              <div class="content">
+                <div style="text-align: left;">
+                  <span >{{ item.name }}</span>
+                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
+                  <small >{{ item.city }}</small>  
+                </div>
+                
+                <button class="profile-btn" (click)="goToProfile()" >Visitar perfil</button>
+              </div>
+              
+            </div>
+          </ngu-tile>
+    
+          <button NguCarouselPrev class='left-tile'><i class="fa fa-angle-left"></i></button>
+          <button NguCarouselNext class='right-tile'><i class="fa fa-angle-right"></i></button>
+          
+          <div style="text-align: center; padding: 10px 0px;" NguCarouselPoint >
+            <span *ngFor="let item of tileCarousel.pointNumbers; let i = index;" >
+              <span class="dot" [ngClass]="{ 'active-dot': i == tileCarousel.activePoint }" (click)="tileCarousel.moveTo(i)"></span>
+            </span>
+          </div>
+        </ngu-carousel>
+      </div>
+  
+      <div class="content-section" style="margin-top: 25px;">
+        <div class="title-section" >
+          <i class="fas fa-crown" ></i> <span style="border-bottom: 3px solid #FD297B;">Diablitas Gold.</span>
+        </div>
+      </div>
+  
+      <div class="row" >
+        <div class="col-lg-15 col-xs-6 col-sm-3 col-md-3" *ngFor="let model of silverModels" style="margin-top: 10px; margin-bottom: 10px;">
+          <div class="card-gold" >
+              <span class="like">Certificación <i class="fas fa-crown"></i></span>
+              <div class="imgs">
+                  <img class="bottom"  [src]="model.imgs[1]" draggable="false"  />
+                  <img class="top"  [src]="model.imgs[0]" draggable="false"  />
+                </div>
+              <div class="content">
+                <div style="text-align: left;">
+                  <span >{{ model.name }}</span>
+                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
+                  <small >{{ model.city }}</small>  
+                </div>
+                
+                <button class="profile-btn" (click)="goToProfile()" >Visitar perfil</button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="learn-more">
+        <h3>Conoce más acerca de nuestros niveles de Certificación</h3>
+        <h4>(Diablitas Diamond, Gold y Silver)</h4>
+        <br>
+        <button type="button" class="learn-more-btn" (click)="openLevelsModal()">
+          <span style="color: #fff;">Conocer más <i class="fa fa-angle-right"></i></span>
+        </button>
+      </div>
+  
+      <div class="content-section">
+        <div class="title-section" >
+          <i class="fas fa-coins" ></i> <span style="border-bottom: 3px solid #FD297B;">Diablitas Silver.</span>
+        </div>
+      </div>
+  
+      <div class="row" >
+        <div class="col-xs-6 col-sm-3 col-lg-2 col-md-15" *ngFor="let model of silverModels" style="margin-top: 10px; margin-bottom: 10px;">
+          <div class="card-silver" >
+            <span class="like">Certificación <i class="fas fa-coins"></i></span>
+            <div class="imgs">
+                <img class="bottom"  [src]="model.imgs[1]" draggable="false"  />
+                <img class="top"  [src]="model.imgs[0]" draggable="false"  />
+              </div>
+            <div class="content">
+              <div style="text-align: left;">
+                <span >{{ model.name }}</span>
+                <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
+                <small >{{ model.city }}</small>  
+              </div>
+              <button class="profile-btn" (click)="goToProfile()"  >Visitar perfil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!--footer class="footer">
+        <div style="text-align: center; margin: 25px 0px 10px;">
+          <a style="margin-right: 25px; color: #fff; font-size: 16px;">Términos y condiciones</a> <a style="color: #fff; font-size: 16px;">Política de privacidad</a>
+        </div>
+    
+        <div class="legal-text">
+          <small>Diablitas es un portal que ofrece exclusivamente espacios publicitarios <b>NO ES UNA AGENCIA</b>. Todo su contenido visual, texto y teléfonos es de única y exclusiva responsabilidad de los anunciantes y de ninguna manera la empresa conoce, participa o interfiere en forma o manera alguna en las actividades que estas realizan. El acuerdo al que lleguen las chicas con los visitantes de este sitio es responsabilidad de ambos; quedando Diablitas completamente fuera y sin conocimiento de dicho acuerdo.</small>
+        </div>
+    
+        <div class="copyright">
+          <span>Copyrights 2019 - Diablitas</span>
+        </div>
+      </footer-->
+  
+    </div>
+  
+  </div>
+
+
+<div class="modal fade" role="dialog" id="levels">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 0;">
+        
+        <div class="modal-title" >
+          <img src="https://i0.wp.com/www.vectorico.com/wp-content/uploads/2018/02/Tinder-Logo.png?resize=253%2C300" width="40" height="50" />
+          <span style="margin-left: 10px;">Diablitas</span>
+        </div>
+
+      </div>
+      
+      <div class="modal-body" style="padding: 20px;">
+
+        <div class="row" >
+            <iframe src="https://www.youtube.com/embed/7Lw-YRoEpEs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>

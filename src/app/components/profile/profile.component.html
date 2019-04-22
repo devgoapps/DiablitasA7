@@ -1,0 +1,367 @@
+<div >
+  
+  <div class="header-profile"  >
+    <img [src]="'http://memoflores.com/fotos-de-boudoir-02.jpg'" class="full-img" draggable="false" />
+    <img [src]="'https://img.elcomercio.pe/files/ec_article_multimedia_gallery/uploads/2018/08/23/5b7f04d7265b6.jpeg'" class="profile-img" draggable="false" />
+    
+    <div class="profile-name-content">
+      <div class="girl-name" >
+        <span ><i class="fa fa-diamond"></i> LuceroHot</span>
+        <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> 1,356</small>
+      </div>
+      <span class="girl-city" >Monterrey</span>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="detail-col" >
+
+      <div class="profile-panel" > 
+        <div class="list-item" >
+          <span>Nacionalidad: </span>
+          <span >Mexicana</span>
+        </div>
+        <div class="list-item" >
+          <span>Edad: </span>
+          <span >24 años</span>
+        </div>
+        <div class="list-item" >
+          <span>Color de Piel: </span>
+          <span >Blanca</span>
+        </div>
+        <div class="list-item" >
+          <span>Color de Pelo: </span>
+          <span >Castaño claro</span>
+        </div>
+        <div class="list-item" >
+          <span>Color de Ojos: </span>
+          <span >Verdes</span>
+        </div>
+        <div class="list-item" >
+          <span>Medidas: </span>
+          <span >96 - 60 - 104</span>
+        </div>
+        <div class="list-item" >
+          <span>Altura: </span>
+          <span >1.70 m.</span>
+        </div>
+        <div class="list-item" >
+          <span>Peso: </span>
+          <span >60 kg.</span>
+        </div>
+        <div class="list-item" >
+          <span>Zonas: </span><br>
+          <span >Santa fe, Polanco, Reforma, Condesa, Revolución</span>
+        </div>
+        
+        <div class="list-item" >
+          <span>Teléfono: </span>
+          <span class="celphone"><i class="fas fa-mobile-alt"></i> (55) 5429-0783</span>
+        </div>
+
+        <div class="list-item" style="justify-content: space-around;">
+          <span class="social-icon" style="background: #55ACEE;"><i class="fa fa-twitter"></i></span>
+          <span class="social-icon" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);"><i class="fa fa-instagram"></i></span>
+        </div>     
+        
+      </div>
+
+      <div class="profile-panel" style="margin-top: 10px;" >
+        <div class="section-title" style="margin-top: 0px;">
+          <span class="title" >Comentarios</span>
+        </div>
+
+        <div class="comment-list" >
+          <div class="comment-item" >
+            <div>
+              <span>Arthur</span>
+              <div >
+                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart"></i>
+              </div>
+            </div>
+            <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira.</span>
+          </div>
+  
+          <div class="comment-item" >
+            <div>
+              <span >Moy</span>
+              <div >
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart-o" ></i>
+              </div>
+            </div>
+            <span style="font-size: 14px;">Fue una experiencia increible Lucero se porto super linda, sin duda alguna recomendadisima para cualquiera que quiera divertise.</span>
+          </div>
+  
+          <div class="comment-item" >
+            <div>
+              <span>Fer</span>
+              <div >
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart" ></i>
+              </div>
+            </div>
+            <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira, porque si viviera en mi ciudad, ya estaria yo en la calle….</span>
+          </div>
+
+        </div>
+        
+        <div class="comment-btn-content">
+          <button class="comment-btn" (click)="openModalComment()">Agregar comentario</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="galery-col" >
+
+      <div class="tabs-content">
+        <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Detalle</div>
+        <div class="tabs" [ngClass]="{ 'active': tab == 'galery' }" (click)="tab = 'galery'" >Galeria</div>
+      </div>
+
+      <div class="profile-panel-2" [hidden]="tab != 'detail'" style="padding: 25px;">
+
+        <div class="section-title" style="margin-top: 0px;">
+          <span class="title"><i class="fas fa-user"></i> Sobre mi</span>
+          <span class="celphone"><i class="fas fa-mobile-alt"></i> (55) 5429-0783</span>
+        </div>
+
+        <div >
+          Hola soy sofia una hermosa venezolana que esta en la Ciudad de México lista para consentirte y complacerte en tus deseos mas íntimos mi amor, tengo un hermoso cuerpo , senos grandes y culo grande con una cinturita , mis servicios son Sexo vaginal , anal y oral al natural dependiendo la higiene, soy una chica super discreta y chevere, me gusta ser muy limpia, mido 170  y mi peso es de 69 , veras que conmigo disfrutaras cada momento lleno de erotismo y placer, te lo haré  bien rico para que así vuelvas a mis brazos, te demostrare como las Venezolanas lo hacemos, te esperare super cachondita. Atiendo en Hoteles o voy a tu domicilio , como tu prefieras.
+        </div>
+        
+        <div class="section-title" >
+          <span class="title"><i class="fas fa-fire-alt"></i> Servicios</span>
+        </div>
+
+        <div >
+          <span class="tag" >Sexo Oral Natural</span>
+          <span class="tag" >Sexo Anal</span>
+          <span class="tag" >Tríos</span>
+          <span class="tag" >Lesbico</span>
+          <span class="tag" >Atención parejas</span>
+          <span class="tag" >Besos</span>
+          <span class="tag" >Striptease</span>
+          <span class="tag" >Masajes Eróticos</span>
+          <span class="tag" >Toda la noche</span>
+          <span class="tag" >Fiestas</span>
+          <span class="tag" >Fantasias</span>
+          <span class="tag" >Despedidas</span>
+          <span class="tag" >Swinger</span>
+        </div>
+      
+        <div class="section-title" >
+          <span class="title"><i class="far fa-credit-card"></i> Tarifas</span>
+        </div>
+
+          
+        <div >
+          <div class="list-item">
+            <span>1 hora: </span>
+            <span >$ 1,800</span>
+          </div>
+          <div class="list-item">
+            <span>2 horas: </span>
+            <span >$ 2,500</span>
+          </div>
+          <div class="list-item">
+            <span>3 horas: </span>
+            <span >$ 3,500</span>
+          </div>
+          <div class="list-item">
+            <span>Toda la Noche: </span>
+            <span >A coordinar</span>
+          </div>
+          <div class="list-item">
+            <span>Fin de semana: </span>
+            <span >A coordinar</span>
+          </div>
+          <div class="list-item">
+            <span>Viajes: </span>
+            <span >A coordinar</span>
+          </div>
+        </div>
+
+        <div class="info-content" id="important" >
+          <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
+          <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+        </div>
+  
+      </div>
+
+      <div class="profile-panel-2" [hidden]="tab != 'galery'" style="padding: 25px;" >
+
+
+        <div class="section-title" style="margin-top: 0px;" >
+          <span class="title"><i class="fas fa-video"></i> Videos</span>
+        </div>
+
+        <div class="row" >
+          <div class="col-md-4" *ngFor="let video of videos" >
+          
+            <video height="200" controls >
+              <source [src]="video" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+                
+          </div>
+        </div>
+
+        <div class="section-title" >
+          <span class="title"><i class="fas fa-camera-retro"></i> Fotografías</span>
+        </div>
+
+      
+        <div class="row" >
+          <div class="col-xs-6 col-md-4" *ngFor="let model of modelPhotos; let i = index;" >
+            <div class="card-galery" (click)="openModalPhotos(i)" >
+              <img [src]="model.img" draggable="false" />
+            </div>
+          </div>
+        </div>
+
+        <div class="info-content" id="important" >
+          <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
+          <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+        </div>
+
+      </div>
+
+    </div>
+        
+
+  </div>
+
+
+  <div class="icon-bar">
+    <a href="javascript: void(0)" class="important" (click)="goToImportant()"><i class="fas fa-exclamation-triangle"></i></a> 
+    <a href="javascript: void(0)" class="twitter"><i class="fa fa-twitter"></i></a> 
+    <a href="javascript: void(0)" class="instagram"><i class="fa fa-instagram"></i></a> 
+  </div>
+
+  
+</div>
+
+<!-- GALERY MODAL -->
+
+<div class="modal fade" role="dialog" id="photos">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+     
+      <div class="modal-body" style="padding: 0px;">
+
+        <div id="carrusel" style="position: relative;">
+          <button type="button" data-dismiss="modal" style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; font-size: 22px; padding: 5px 10px;"><i class="fa fa-times" style="color: #fff;"></i></button>
+          <img [src]="img" draggable="false" class="c-img" />
+
+          <button class='left-banner' (click)="prevImg()"><i class="fa fa-angle-left"></i></button>
+          <button class='right-banner' (click)="nextImg()"><i class="fa fa-angle-right"></i></button>
+
+          <div style="text-align: center; padding: 10px 0px;">
+            <span *ngFor="let photo of modelPhotos; let i = index;" >
+              <span class="dot" [ngClass]="{ 'active-dot': currentIndex == i }" (click)="img = modelPhotos[i].img; currentIndex = i;"></span>
+            </span>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!-- COMMENTS MODAL -->
+
+<div class="modal fade" role="dialog" id="comment">
+  <div class="modal-dialog " >
+    <div class="modal-content comment-modal" >
+
+      <div class="modal-header" >
+        <div style="text-align: right;">
+          <span style="float: left; font-size: 25px; font-weight: bold;">Nuevo comentario</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      
+      <div class="modal-body comment-body" >
+         
+
+        <form #form="ngForm" (ngSubmit)="form.valid ? true: false" autocomplete="off" novalidate >
+
+          <div class="row" style="margin: 10px 0px;">
+            <div class="col-sm-6 col-md-6" style="margin-bottom: 10px;">
+              <label class="required" >Nombre:</label>
+              <input type="text" [(ngModel)]="comment.name" #fname="ngModel" name="fname" required placeholder="Ejem. Ricardo" class="profile-control" />
+              
+              <div class="validation" *ngIf="form.submitted && fname.errors" >
+                <span [hidden]="!fname.errors.required" >
+                  El nombre es requerido.
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6" style="margin-bottom: 10px;">
+              <label class="required" >Corazones:</label><br>
+              <rating [max]="5" [(ngModel)]="comment.score" #fscore="ngModel" name="fscore" required [customTemplate]="heart" style="color: #FD297B; font-size: 35px; outline: none;" ></rating>
+              <ng-template #heart let-index="index" let-value="value" style="outline: none;" >
+                <i [ngClass]="index < value ? 'fa fa-heart' : 'fa fa-heart-o'"  ></i>
+              </ng-template>
+
+              <div class="validation" *ngIf="form.submitted && fscore.errors" >
+                <span [hidden]="!fscore.errors.required" >
+                  Los corazones son requeridos.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin: 10px 0px;">
+            <div class="col-sm-12 col-md-12">
+              <label class="required" >Comentario:</label>
+              <textarea rows="4" [(ngModel)]="comment.comment" #fcomment="ngModel" name="fcomment" required placeholder="Ejem. Una chica realmente hermosa, super linda y divertida, la pase genial con ella recomiendo mucho salir con ella." class="profile-control" ></textarea>
+              
+              <div class="validation" *ngIf="form.submitted && fcomment.errors" >
+                <span [hidden]="!fcomment.errors.required" >
+                  El comentario es requerido.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!--div class="row" style="margin: 10px 0px;">
+            <div class="col-sm-12 col-md-12">
+              <re-captcha [(ngModel)]="comment.captcha" #fcaptcha="ngModel" name="fcaptcha" required [siteKey]="siteKey" ></re-captcha>
+
+              <div class="validation" *ngIf="form.submitted && fcaptcha.errors" >
+                <span [hidden]="!fcaptcha.errors.required" >
+                  Validar el captcha es requerido.
+                </span>
+              </div>
+            </div>
+          </div-->
+
+
+          <div class="comment-btn-content">
+            <button type="submit" class="comment-btn" >Agregar comentario</button>
+          </div>
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+  

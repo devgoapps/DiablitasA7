@@ -1,0 +1,514 @@
+<div style="width: 100%; overflow: hidden;">
+    <form #form="ngForm" (ngSubmit)="saveProfile()" novalidate autocomplete="off" id="profile-form" >
+
+    <div class="header-profile">
+        <img [src]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
+        <label for="coverImg" class="upload-cover-img" ><i class="fas fa-sync-alt" ></i></label>
+
+        <img [src]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
+        <label for="profileImg" class="upload-profile-img" ><i class="fas fa-sync-alt" ></i></label>
+        <div id="profile-img-error" class="required-profile-img" [hidden]="!form.submitted && profile.uploadProfilePhoto"  ><i class="fas fa-exclamation-circle"></i></div>
+
+        <div class="profile-name-content">
+          <div class="girl-name" >
+            <input type="text" [(ngModel)]="profile.name" name="fname" #fname="ngModel" required class="profile-name" placeholder="Ejem. KarlitaLoves83"/>
+            <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> 1,356</small>
+            
+          </div>
+          <div class="validation" *ngIf="form.submitted && fname.errors" >
+            <span [hidden]="!fname.errors.required" >
+              El nombre es requerido.
+            </span>
+          </div>
+          
+
+          <div style="display: flex;">
+
+            <div>
+              <ng-select
+                [items]="states"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                bindLabel="Description"
+                bindValue="KeyState"
+                name="fstate"
+                #fstate="ngModel"
+                class="custom"
+                placeholder="Selecciona una ciudad"
+                notFoundText="No se encontraron ciudades."
+                (change)="getCities()"
+                required
+                [(ngModel)]="profile.Profile.KeyState" >
+              </ng-select>
+
+              <div class="validation" *ngIf="form.submitted && fstate.errors" >
+                <span [hidden]="!fstate.errors.required" >
+                  El estado es requerido.
+                </span>
+              </div>
+            </div>
+
+            <div style="margin-right: 10px;"></div>
+
+            <div>
+              <ng-select
+                [items]="cities"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                bindLabel="Description"
+                bindValue="KeyTown"
+                name="fcity"
+                #fcity="ngModel"
+                class="custom"
+                placeholder="Selecciona una ciudad"
+                notFoundText="No se encontraron ciudades."
+                (change)="getZones()"
+                required
+                [(ngModel)]="profile.Profile.KeyTown" >
+              </ng-select>
+
+              <div class="validation" *ngIf="form.submitted && fcity.errors" >
+                <span [hidden]="!fcity.errors.required" >
+                  La ciudad es requerido.
+                </span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="invisible">
+          <input type="file" id="profileImg" (change)="uploadProfilePhoto($event)" accept="image/*;capture=filesystem" />
+          <input type="file" id="coverImg" (change)="uploadCoverPhoto($event)" accept="image/*;capture=filesystem" />
+        </div>
+    </div>
+    
+
+    <div class="profile-content">
+      <div class="detail-col" >
+        <div class="profile-panel" >          
+         
+          <div class="list-item" >
+            <span>Nacionalidad: </span>
+            <ng-select
+                [items]="nationalities"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="Description"
+                name="fnationality"
+                #fnationality="ngModel"
+                class="custom2"
+                required
+                placeholder="Selecciona una nacionalidad"
+                notFoundText="No se encontraron nacionalidades."
+                [(ngModel)]="profile.nationality" >
+            </ng-select>
+            
+            <div class="validation" *ngIf="form.submitted && fnationality.errors" >
+              <span [hidden]="!fnationality.errors.required" >
+                La nacionalidad es requerida.
+              </span>
+            </div>
+          </div>
+          
+          <div class="list-item" >
+            <span>Edad: </span>
+            <input type="text" [(ngModel)]="profile.age" name="fage" #fage="ngModel" required sufix=" años" mask="00" class="profile-ctrl" placeholder="Ejem. 25"/>
+            
+            <div class="validation" *ngIf="form.submitted && fage.errors" >
+              <span [hidden]="!fage.errors.required" >
+                La edad es requerida.
+              </span>
+            </div>
+          </div>
+
+          <div class="list-item" >
+            <span>Color de Piel: </span>
+            <ng-select
+                [items]="colorSkin"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="Description"
+                name="fskin"
+                #fskin="ngModel"
+                class="custom2"
+                required
+                placeholder="Selecciona un color de piel"
+                notFoundText="No se encontraron colores de piel."
+                [(ngModel)]="profile.skin" >
+            </ng-select>
+
+            <div class="validation" *ngIf="form.submitted && fskin.errors" >
+              <span [hidden]="!fskin.errors.required" >
+                El color de piel es requerido.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Color de Cabello: </span>
+            <ng-select
+                [items]="colorHair"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="false"
+                bindLabel="Description"
+                name="fhair"
+                #fhair="ngModel"
+                class="custom2"
+                required
+                placeholder="Selecciona un color de pelo"
+                notFoundText="No se encontraron colores de pelo."
+                [(ngModel)]="profile.hair" >
+            </ng-select>
+
+            <div class="validation" *ngIf="form.submitted && fhair.errors" >
+              <span [hidden]="!fhair.errors.required" >
+                El color de cabello es requerido.
+              </span>
+            </div>
+          </div>
+
+          <div class="list-item" >
+            <span>Color de Ojos: </span>
+            <ng-select
+              [items]="colorEyes"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              [searchable]="false"
+              bindLabel="Description"
+              name="feyes"
+              #feyes="ngModel"
+              class="custom2"
+              required
+              placeholder="Selecciona un color de ojos"
+              notFoundText="No se encontraron colores de ojos."
+              [(ngModel)]="profile.eyes" >
+            </ng-select>
+
+            <div class="validation" *ngIf="form.submitted && feyes.errors" >
+              <span [hidden]="!feyes.errors.required" >
+                El color de ojos es requerido.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Medidas: </span>
+            <input type="text" [(ngModel)]="profile.figure" name="ffigure" #ffigure="ngModel" required class="profile-ctrl" placeholder="Ejem. 90-60-100" />
+
+            <div class="validation" *ngIf="form.submitted && ffigure.errors" >
+              <span [hidden]="!ffigure.errors.required" >
+                Las medidas son requeridas.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Altura: </span>
+            <input type="text" [(ngModel)]="profile.height" name="fheight" #fheight="ngModel" required sufix=" mts." mask="0.00" class="profile-ctrl" placeholder="Ejem. 1.68"/>
+
+            <div class="validation" *ngIf="form.submitted && fheight.errors" >
+              <span [hidden]="!fheight.errors.required" >
+                La altura es requerida.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Peso: </span>
+            <input type="text" [(ngModel)]="profile.weight" name="fweight" #fweight="ngModel" required sufix=" kg." mask="900" class="profile-ctrl" placeholder="Ejem. 61"/>
+
+            <div class="validation" *ngIf="form.submitted && fweight.errors" >
+              <span [hidden]="!fweight.errors.required" >
+                El peso es requerido.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" style="flex-wrap: wrap;" >
+            <span style="flex:100%;">Zonas: </span>
+            <tag-input [(ngModel)]='profile.zones' name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
+              <tag-input-dropdown [autocompleteItems]="zones" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+            </tag-input>
+
+            <div class="validation" *ngIf="form.submitted && fzones.errors" >
+              <span [hidden]="!fzones.errors.required" >
+                Las zonas son requeridas.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Teléfono: </span>
+            <input type="text" [(ngModel)]="profile.phone" name="fphone" #fphone="ngModel" required mask="(00) 0000-0000" class="profile-ctrl" placeholder="Ejem. (55) 2738-0873"/>
+
+            <div class="validation" *ngIf="form.submitted && fphone.errors" >
+              <span [hidden]="!fphone.errors.required" >
+                El teléfono es requerido.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" >
+            <span>Twitter: </span>
+            <input type="text" [(ngModel)]="profile.twitter" name="ftwitter" class="profile-ctrl" placeholder="https://twitter.com"/>
+          </div>
+          <div class="list-item" >
+            <span>Instagram: </span>
+            <input type="text" [(ngModel)]="profile.instagram" name="finstagram" class="profile-ctrl" placeholder="https://instagram.com"/>
+          </div>
+          
+        </div>
+  
+        <div class="profile-panel" style="margin-top: 10px; padding-bottom: 50px;">
+          <div class="section-title" style="margin-top: 0px;" >
+            <span class="title">Comentarios</span>
+          </div>
+  
+          <div class="comment-list">
+            <div class="comment-item" >
+              <div>
+                <span>Arthur</span>
+                <div >
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                </div>
+              </div>
+              <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira.</span>
+            </div>
+    
+            <div class="comment-item" >
+              <div>
+                <span>Moy</span>
+                <div >
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart-o"></i>
+                </div>
+              </div>
+              <span style="font-size: 14px;">Fue una experiencia increible Lucero se porto super linda, sin duda alguna recomendadisima para cualquiera que quiera divertise.</span>
+            </div>
+    
+            <div class="comment-item" >
+              <div>
+                <span>Fer</span>
+                <div >
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                  <i class="fa fa-heart"></i>
+                </div>
+              </div>
+              <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira, porque si viviera en mi ciudad, ya estaria yo en la calle….</span>
+            </div>
+  
+          </div>
+          
+        </div>
+        
+      </div>
+  
+      <div class="galery-col" >
+  
+        <div class="tabs-content">
+          <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Detalle</div>
+          <div class="tabs" [ngClass]="{ 'active': tab == 'galery' }" (click)="tab = 'galery'" >Galeria</div>
+        </div>
+  
+        <div class="profile-panel-2" [hidden]="tab != 'detail'">
+          
+          <div class="section-title" style="margin-top: 0px;">
+            <span class="title"><i class="fas fa-user"></i> Sobre mi</span>
+            <div class="phone-content">
+              <i class="fas fa-mobile-alt" ></i> 
+              <input type="text" [(ngModel)]="profile.phone" name="fphone2" #fphone2="ngModel" required mask="(00) 0000-0000" class="phone-ctrl" placeholder="Ejem. (55) 6473-8463"/>
+              
+              <div class="validation" *ngIf="form.submitted && fphone2.errors" style="text-align: right;" >
+                <span [hidden]="!fphone2.errors.required" >
+                  El teléfono es requerido.
+                </span>
+              </div>
+            </div>
+          </div>
+  
+            
+          <div >
+            <textarea rows="6" [(ngModel)]="profile.description" name="fdescription" #fdescription="ngModel" required class="description-ctrl" placeholder="Ejem. Hola soy KarlitaLoves83 soy una chica muy linda ....."></textarea>
+            
+            <div class="validation" *ngIf="form.submitted && fdescription.errors" >
+              <span [hidden]="!fdescription.errors.required" >
+                La descripción es requerida.
+              </span>
+            </div>
+          </div>
+          
+          <div class="section-title" >
+            <span class="title"><i class="fas fa-fire-alt"></i> Servicios</span>
+          </div>
+
+          <div class="flex-content">
+            <ng-select
+                [items]="services"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                bindLabel="Description"
+                name="fservice"
+                class="custom3"
+                placeholder="Selecciona un servicio"
+                notFoundText="No se encontraron servicios."
+                [(ngModel)]="service" >
+            </ng-select>
+
+            <button type="button" (click)="addService()" class="profile-btn" >Agregar</button>
+          </div>
+
+          <div class="validation" *ngIf="form.submitted && (!profile.services || profile.services.length == 0)" >
+            Los servicios son requeridos.
+          </div>
+  
+          <div >
+            <span class="tag" *ngFor="let service of profile.services; let i = index;">{{ service.Description }} <i class="fa fa-times" style="color: #fff;" (click)="removeService(i)"></i></span>
+          </div>
+        
+          <div class="section-title" >
+            <span class="title"><i class="far fa-credit-card"></i> Tarifas</span>
+          </div>
+  
+            
+          <div >
+            <div class="list-item">
+              <span>1 hora: </span>
+
+              <input type="text" [(ngModel)]="profile.price1" name="fprice1" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 1,800"/>
+            </div>
+            <div class="list-item">
+              <span>2 horas: </span>
+              <input type="text" [(ngModel)]="profile.price2" name="fprice2" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 2,500"/>
+            </div>
+            <div class="list-item">
+              <span>3 horas: </span>
+              <input type="text" [(ngModel)]="profile.price3" name="fprice3" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 3,500"/>
+            </div>
+            <div class="list-item">
+              <span>Toda la Noche: </span>
+              <span >A coordinar</span>
+            </div>
+            <div class="list-item">
+              <span>Fin de semana: </span>
+              <span >A coordinar</span>
+            </div>
+            <div class="list-item">
+              <span>Viajes: </span>
+              <span >A coordinar</span>
+            </div>
+          </div>
+          
+          <div class="info-content" id="important" >
+            <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
+            <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+          </div>
+    
+        </div>
+  
+        <div [hidden]="tab != 'galery'" class="profile-panel-2">
+  
+  
+          <div class="section-title" style="margin-top: 0;" >
+            <span class="title"><i class="fas fa-video"></i> Videos</span>
+            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;" for="videos"><i class="fas fa-plus"></i> Agregar</label></button>
+          </div>
+
+          <input type="file" style="display: contents;" id="videos" (change)="uploadVideo($event)" class="invisible" accept="video/*;capture=filesystem" />
+  
+          <div class="row" >
+            <div class="col-md-4" *ngFor="let video of profile.videos; let i = index;">
+              <div style="position: relative;" >
+                <label (click)="removeVideo(i)" class="remove-video-icon" ><i class="fas fa-times" ></i></label>
+              
+                <video height="200" controls >
+                  <source [src]="video.video" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+            </div>
+
+            <div *ngIf="!profile.videos || profile.videos.length < 1" class="no-content">
+              <span ><i class="fas fa-ban"></i></span><br>
+              <h3 >No hay videos para mostrar</h3>
+            </div>
+
+          </div>
+  
+          <div class="section-title" >
+            <span class="title"><i class="fas fa-camera-retro"></i> Fotografías</span>
+            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;" for="photos"><i class="fas fa-plus"></i> Agregar</label></button>
+          </div>
+
+          <input type="file" style="display: contents;" id="photos" (change)="uploadPhoto($event)" class="invisible" accept="image/*;capture=filesystem" />
+  
+          <div class="row" >
+            <div class="col-xs-6 col-md-4" *ngFor="let photo of profile.photos; let i = index;">
+              <div class="card-galery" >
+                <label (click)="removePhoto(i)" class="remove-img-icon" ><i class="fas fa-times" ></i></label>
+                <img [src]="photo.img" draggable="false" (click)="openModalPhotos(i)" />
+              </div>
+            </div>
+
+            <div *ngIf="!profile.photos || profile.photos.length < 1" class="no-content">
+              <span ><i class="fas fa-ban"></i></span><br>
+              <h3 >No hay fotografías para mostrar</h3>
+            </div>
+  
+          </div>
+  
+  
+          <div class="info-content" id="important2" >
+            <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
+            <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+          </div>
+  
+        </div>
+  
+      </div>
+      <input type="submit" id="submit-btn" style="visibility: hidden; pointer-events: none;">
+    </div>
+    </form>
+  
+  
+    <div class="icon-bar">
+      <a href="javascript: void(0)" class="important" (click)="goToImportant()"><i class="fas fa-exclamation-triangle"></i></a> 
+      <a href="javascript: void(0)" class="twitter" (click)="submit()"><i class="fa fa-twitter"></i></a> 
+      <a href="javascript: void(0)" class="instagram"><i class="fa fa-instagram"></i></a>
+    </div>
+  
+    
+  </div>
+  
+  
+  <div class="modal fade" role="dialog" id="edit-photo">
+    <div class="modal-dialog" >
+      <div class="modal-content">
+       
+        <div class="modal-body" style="padding: 0px;">
+  
+          <div id="carrusel" style="position: relative;">
+            <button type="button" data-dismiss="modal" style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; font-size: 22px; padding: 5px 10px;"><i class="fa fa-times" style="color: #fff;"></i></button>
+            <img [src]="img" draggable="false" class="c-img" />
+  
+            <button type="button" class='left-banner' (click)="prevImg()"><i class="fa fa-angle-left"></i></button>
+            <button type="button" class='right-banner' (click)="nextImg()"><i class="fa fa-angle-right"></i></button>
+  
+            <div style="text-align: center; padding: 10px 0px;">
+              <span *ngFor="let photo of profile.photos; let i = index;" >
+                <span class="dot" [ngClass]="{ 'active-dot': currentIndex == i }" (click)="img = modelPhotos[i].img; currentIndex = i;"></span>
+              </span>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
