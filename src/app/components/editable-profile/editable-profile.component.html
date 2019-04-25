@@ -1,17 +1,18 @@
 <div style="width: 100%; overflow: hidden;">
-    <form #form="ngForm" (ngSubmit)="saveProfile()" novalidate autocomplete="off" id="profile-form" >
+    <form #form="ngForm" (ngSubmit)="form.valid && isValid() ? saveProfile(): initTooltips()" novalidate autocomplete="off" id="profile-form" >
 
     <div class="header-profile">
         <img [src]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
         <label for="coverImg" class="upload-cover-img" ><i class="fas fa-sync-alt" ></i></label>
-
+        <div id="full-img-error" class="required-full-img" *ngIf="form.submitted && !profile.uploadCoverPhoto" ><i class="fas fa-exclamation-circle"></i></div>
+        
         <img [src]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
         <label for="profileImg" class="upload-profile-img" ><i class="fas fa-sync-alt" ></i></label>
-        <div id="profile-img-error" class="required-profile-img" [hidden]="!form.submitted && profile.uploadProfilePhoto"  ><i class="fas fa-exclamation-circle"></i></div>
+        <div id="profile-img-error" class="required-profile-img" *ngIf="form.submitted && !profile.uploadProfilePhoto" ><i class="fas fa-exclamation-circle"></i></div>
 
         <div class="profile-name-content">
           <div class="girl-name" >
-            <input type="text" [(ngModel)]="profile.name" name="fname" #fname="ngModel" required class="profile-name" placeholder="Ejem. KarlitaLoves83"/>
+            <input type="text" [(ngModel)]="profile.Name" name="fname" #fname="ngModel" required class="profile-name" placeholder="Ejem. KarlitaLoves83"/>
             <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> 1,356</small>
             
           </div>
@@ -96,13 +97,14 @@
                 [closeOnSelect]="true"
                 [searchable]="false"
                 bindLabel="Description"
+                bindValue="KeyNationality"
                 name="fnationality"
                 #fnationality="ngModel"
                 class="custom2"
                 required
                 placeholder="Selecciona una nacionalidad"
                 notFoundText="No se encontraron nacionalidades."
-                [(ngModel)]="profile.nationality" >
+                [(ngModel)]="profile.Profile.KeyNationality" >
             </ng-select>
             
             <div class="validation" *ngIf="form.submitted && fnationality.errors" >
@@ -114,7 +116,7 @@
           
           <div class="list-item" >
             <span>Edad: </span>
-            <input type="text" [(ngModel)]="profile.age" name="fage" #fage="ngModel" required sufix=" años" mask="00" class="profile-ctrl" placeholder="Ejem. 25"/>
+            <input type="text" [(ngModel)]="profile.Profile.Age" name="fage" #fage="ngModel" required sufix=" años" mask="00" class="profile-ctrl" placeholder="Ejem. 25"/>
             
             <div class="validation" *ngIf="form.submitted && fage.errors" >
               <span [hidden]="!fage.errors.required" >
@@ -131,13 +133,14 @@
                 [closeOnSelect]="true"
                 [searchable]="false"
                 bindLabel="Description"
+                bindValue="IdCatalogDetail"
                 name="fskin"
                 #fskin="ngModel"
                 class="custom2"
                 required
                 placeholder="Selecciona un color de piel"
                 notFoundText="No se encontraron colores de piel."
-                [(ngModel)]="profile.skin" >
+                [(ngModel)]="profile.Profile.IdSkinColor" >
             </ng-select>
 
             <div class="validation" *ngIf="form.submitted && fskin.errors" >
@@ -154,13 +157,14 @@
                 [closeOnSelect]="true"
                 [searchable]="false"
                 bindLabel="Description"
+                bindValue="IdCatalogDetail"
                 name="fhair"
                 #fhair="ngModel"
                 class="custom2"
                 required
                 placeholder="Selecciona un color de pelo"
                 notFoundText="No se encontraron colores de pelo."
-                [(ngModel)]="profile.hair" >
+                [(ngModel)]="profile.Profile.IdHairColor" >
             </ng-select>
 
             <div class="validation" *ngIf="form.submitted && fhair.errors" >
@@ -178,13 +182,14 @@
               [closeOnSelect]="true"
               [searchable]="false"
               bindLabel="Description"
+              bindValue="IdCatalogDetail"
               name="feyes"
               #feyes="ngModel"
               class="custom2"
               required
               placeholder="Selecciona un color de ojos"
               notFoundText="No se encontraron colores de ojos."
-              [(ngModel)]="profile.eyes" >
+              [(ngModel)]="profile.Profile.IdEyeColor" >
             </ng-select>
 
             <div class="validation" *ngIf="form.submitted && feyes.errors" >
@@ -195,7 +200,7 @@
           </div>
           <div class="list-item" >
             <span>Medidas: </span>
-            <input type="text" [(ngModel)]="profile.figure" name="ffigure" #ffigure="ngModel" required class="profile-ctrl" placeholder="Ejem. 90-60-100" />
+            <input type="text" [(ngModel)]="profile.Profile.Measures" name="ffigure" #ffigure="ngModel" required class="profile-ctrl" placeholder="Ejem. 90-60-100" />
 
             <div class="validation" *ngIf="form.submitted && ffigure.errors" >
               <span [hidden]="!ffigure.errors.required" >
@@ -205,7 +210,7 @@
           </div>
           <div class="list-item" >
             <span>Altura: </span>
-            <input type="text" [(ngModel)]="profile.height" name="fheight" #fheight="ngModel" required sufix=" mts." mask="0.00" class="profile-ctrl" placeholder="Ejem. 1.68"/>
+            <input type="text" [(ngModel)]="profile.Profile.Height" name="fheight" #fheight="ngModel" required sufix=" mts." mask="0.00" class="profile-ctrl" placeholder="Ejem. 1.68"/>
 
             <div class="validation" *ngIf="form.submitted && fheight.errors" >
               <span [hidden]="!fheight.errors.required" >
@@ -215,7 +220,7 @@
           </div>
           <div class="list-item" >
             <span>Peso: </span>
-            <input type="text" [(ngModel)]="profile.weight" name="fweight" #fweight="ngModel" required sufix=" kg." mask="900" class="profile-ctrl" placeholder="Ejem. 61"/>
+            <input type="text" [(ngModel)]="profile.Profile.Weight" name="fweight" #fweight="ngModel" required sufix=" kg." mask="900" class="profile-ctrl" placeholder="Ejem. 61"/>
 
             <div class="validation" *ngIf="form.submitted && fweight.errors" >
               <span [hidden]="!fweight.errors.required" >
@@ -225,8 +230,8 @@
           </div>
           <div class="list-item" style="flex-wrap: wrap;" >
             <span style="flex:100%;">Zonas: </span>
-            <tag-input [(ngModel)]='profile.zones' name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
-              <tag-input-dropdown [autocompleteItems]="zones" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+            <tag-input [(ngModel)]='profile.Profile.Area' [identifyBy]="'Description'" [displayBy]="'Description'" name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
+              <tag-input-dropdown [autocompleteItems]="zones" [identifyBy]="'Description'" [displayBy]="'Description'" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
             </tag-input>
 
             <div class="validation" *ngIf="form.submitted && fzones.errors" >
@@ -235,9 +240,33 @@
               </span>
             </div>
           </div>
+          <div class="list-item" style="flex-wrap: wrap;" >
+            <span style="flex:100%;">Lenguajes: </span>
+            <tag-input [(ngModel)]='profile.Profile.Language' [identifyBy]="'IdCatalogDetail'" [displayBy]="'Description'" name="flanguages" #flanguages="ngModel" required placeholder="Ejem. Ingles, Español" secondaryPlaceholder="Ejem. Ingles, Español" theme="dark" >
+              <tag-input-dropdown [autocompleteItems]="languages" [identifyBy]="'IdCatalogDetail'" [displayBy]="'Description'" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+            </tag-input>
+
+            <div class="validation" *ngIf="form.submitted && flanguages.errors" >
+              <span [hidden]="!flanguages.errors.required" >
+                Los lenguajes son requeridos.
+              </span>
+            </div>
+          </div>
+          <div class="list-item" style="flex-wrap: wrap;" >
+            <span style="flex:100%;">Locaciones: </span>
+            <tag-input [(ngModel)]='profile.Profile.Location' [identifyBy]="'IdCatalogDetail'" [displayBy]="'Description'" name="flocations" #flocations="ngModel" required placeholder="Ejem. hotel, departamento" secondaryPlaceholder="Ejem. hotel, departamento" theme="dark" >
+              <tag-input-dropdown [autocompleteItems]="locations" [identifyBy]="'IdCatalogDetail'" [displayBy]="'Description'" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+            </tag-input>
+
+            <div class="validation" *ngIf="form.submitted && flocations.errors" >
+              <span [hidden]="!flocations.errors.required" >
+                Las locaciones son requeridas.
+              </span>
+            </div>
+          </div>
           <div class="list-item" >
             <span>Teléfono: </span>
-            <input type="text" [(ngModel)]="profile.phone" name="fphone" #fphone="ngModel" required mask="(00) 0000-0000" class="profile-ctrl" placeholder="Ejem. (55) 2738-0873"/>
+            <input type="text" [(ngModel)]="profile.Profile.Phone" name="fphone" #fphone="ngModel" required mask="(00) 0000-0000" class="profile-ctrl" placeholder="Ejem. (55) 2738-0873"/>
 
             <div class="validation" *ngIf="form.submitted && fphone.errors" >
               <span [hidden]="!fphone.errors.required" >
@@ -247,11 +276,11 @@
           </div>
           <div class="list-item" >
             <span>Twitter: </span>
-            <input type="text" [(ngModel)]="profile.twitter" name="ftwitter" class="profile-ctrl" placeholder="https://twitter.com"/>
+            <input type="text" [(ngModel)]="profile.Profile.Twitter" name="ftwitter" class="profile-ctrl" placeholder="https://twitter.com"/>
           </div>
           <div class="list-item" >
             <span>Instagram: </span>
-            <input type="text" [(ngModel)]="profile.instagram" name="finstagram" class="profile-ctrl" placeholder="https://instagram.com"/>
+            <input type="text" [(ngModel)]="profile.Profile.Instagram" name="finstagram" class="profile-ctrl" placeholder="https://instagram.com"/>
           </div>
           
         </div>
@@ -262,21 +291,25 @@
           </div>
   
           <div class="comment-list">
-            <div class="comment-item" >
+            <div class="comment-item" *ngFor="let comment of profile.Profile?.Comment">
               <div>
-                <span>Arthur</span>
+                <span>{{ comment.AliasName }}</span>
                 <div >
-                  <i class="fa fa-heart"></i>
-                  <i class="fa fa-heart"></i>
-                  <i class="fa fa-heart"></i>
-                  <i class="fa fa-heart"></i>
-                  <i class="fa fa-heart"></i>
+                  <span *ngFor="let like of [1, 2, 3, 4, 5]" >
+                    <i class="fa fa-heart" *ngIf="like <= comment.LikeCounter" ></i>
+                    <i class="fa fa-heart-o" *ngIf="like > comment.LikeCounter"></i>
+                  </span>
                 </div>
               </div>
-              <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira.</span>
+              <span style="font-size: 14px;">{{ comment.Comment }}</span>
+            </div>
+
+            <div *ngIf="!profile.Profile?.Comment || profile.Profile?.Comment.length < 1" class="no-content">
+              <span ><i class="fas fa-ban"></i></span><br>
+              <h4 >No hay comentarios para mostrar</h4>
             </div>
     
-            <div class="comment-item" >
+            <!--div class="comment-item" >
               <div>
                 <span>Moy</span>
                 <div >
@@ -302,7 +335,7 @@
                 </div>
               </div>
               <span style="font-size: 14px;">Pocas mujeres tan sexis me han tocado en mi vida, Dominga super buena onda, rica, sexy, cachonda, la verdad que bueno que anda de gira, porque si viviera en mi ciudad, ya estaria yo en la calle….</span>
-            </div>
+            </div-->
   
           </div>
           
@@ -323,7 +356,7 @@
             <span class="title"><i class="fas fa-user"></i> Sobre mi</span>
             <div class="phone-content">
               <i class="fas fa-mobile-alt" ></i> 
-              <input type="text" [(ngModel)]="profile.phone" name="fphone2" #fphone2="ngModel" required mask="(00) 0000-0000" class="phone-ctrl" placeholder="Ejem. (55) 6473-8463"/>
+              <input type="text" [(ngModel)]="profile.Profile.Phone" name="fphone2" #fphone2="ngModel" required mask="(00) 0000-0000" class="phone-ctrl" placeholder="Ejem. (55) 6473-8463"/>
               
               <div class="validation" *ngIf="form.submitted && fphone2.errors" style="text-align: right;" >
                 <span [hidden]="!fphone2.errors.required" >
@@ -335,7 +368,7 @@
   
             
           <div >
-            <textarea rows="6" [(ngModel)]="profile.description" name="fdescription" #fdescription="ngModel" required class="description-ctrl" placeholder="Ejem. Hola soy KarlitaLoves83 soy una chica muy linda ....."></textarea>
+            <textarea rows="6" [(ngModel)]="profile.Profile.Description" name="fdescription" #fdescription="ngModel" required class="description-ctrl" placeholder="Ejem. Hola soy KarlitaLoves83 soy una chica muy linda ....."></textarea>
             
             <div class="validation" *ngIf="form.submitted && fdescription.errors" >
               <span [hidden]="!fdescription.errors.required" >
@@ -364,12 +397,12 @@
             <button type="button" (click)="addService()" class="profile-btn" >Agregar</button>
           </div>
 
-          <div class="validation" *ngIf="form.submitted && (!profile.services || profile.services.length == 0)" >
+          <div class="validation" *ngIf="form.submitted && (!profile.Profile?.Service || profile.Profile?.Service.length == 0)" >
             Los servicios son requeridos.
           </div>
   
           <div >
-            <span class="tag" *ngFor="let service of profile.services; let i = index;">{{ service.Description }} <i class="fa fa-times" style="color: #fff;" (click)="removeService(i)"></i></span>
+            <span class="tag" *ngFor="let service of profile.Profile?.Service; let i = index;">{{ service.Description }} <i class="fa fa-times" style="color: #fff;" (click)="removeService(i)"></i></span>
           </div>
         
           <div class="section-title" >
@@ -381,15 +414,15 @@
             <div class="list-item">
               <span>1 hora: </span>
 
-              <input type="text" [(ngModel)]="profile.price1" name="fprice1" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 1,800"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price1" name="fprice1" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 1,800"/>
             </div>
             <div class="list-item">
               <span>2 horas: </span>
-              <input type="text" [(ngModel)]="profile.price2" name="fprice2" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 2,500"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price2" name="fprice2" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 2,500"/>
             </div>
             <div class="list-item">
               <span>3 horas: </span>
-              <input type="text" [(ngModel)]="profile.price3" name="fprice3" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 3,500"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price3" name="fprice3" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 3,500"/>
             </div>
             <div class="list-item">
               <span>Toda la Noche: </span>
@@ -425,7 +458,7 @@
           <div class="row" >
             <div class="col-md-4" *ngFor="let video of profile.videos; let i = index;">
               <div style="position: relative;" >
-                <label (click)="removeVideo(i)" class="remove-video-icon" ><i class="fas fa-times" ></i></label>
+                <label (click)="removeVideo(i, video.idMedia, video.uri)" class="remove-video-icon" ><i class="fas fa-times" ></i></label>
               
                 <video height="200" controls >
                   <source [src]="video.video" type="video/mp4">
@@ -451,7 +484,7 @@
           <div class="row" >
             <div class="col-xs-6 col-md-4" *ngFor="let photo of profile.photos; let i = index;">
               <div class="card-galery" >
-                <label (click)="removePhoto(i)" class="remove-img-icon" ><i class="fas fa-times" ></i></label>
+                <label (click)="removePhoto(i, photo.idMedia, photo.uri)" class="remove-img-icon" ><i class="fas fa-times" ></i></label>
                 <img [src]="photo.img" draggable="false" (click)="openModalPhotos(i)" />
               </div>
             </div>
@@ -479,8 +512,8 @@
   
     <div class="icon-bar">
       <a href="javascript: void(0)" class="important" (click)="goToImportant()"><i class="fas fa-exclamation-triangle"></i></a> 
-      <a href="javascript: void(0)" class="twitter" (click)="submit()"><i class="fa fa-twitter"></i></a> 
-      <a href="javascript: void(0)" class="instagram"><i class="fa fa-instagram"></i></a>
+      <a href="javascript: void(0)" class="twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></a> 
+      <a href="javascript: void(0)" class="instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></a>
     </div>
   
     

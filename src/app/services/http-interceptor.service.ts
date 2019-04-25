@@ -12,7 +12,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     if(this.sessionService.getToken()){
       request = request.clone({
         setHeaders: {
-          Authorization: this.sessionService.getToken()
+          "Authorization": "Bearer " + this.sessionService.getToken()
         }
       });
     }

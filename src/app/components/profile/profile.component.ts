@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { HttpService } from '../../services/http.service';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 declare var $: any;
 declare var Hammer: any;
@@ -14,6 +18,11 @@ export class ProfileComponent implements OnInit {
   public tab: string = 'detail';
   public img: string = '';
   public currentIndex: number = 0;
+
+  public userId: number = null;
+  public URL: string = 'http://220.1.1.243/diablitas/media/';
+
+  public profile: any = { Profile: { } };
   
   public modelPhotos: Array<any> = [
     { img: 'https://ae01.alicdn.com/kf/HTB1G.3pX6ihSKJjy0Flq6ydEXXak/Mujeres-lencer-a-sexy-Cuerpo-Lenceria-erotica-Teddy-Lencer-a-sujetador-de-las-mujeres-Ropa-interior.jpg', imgs: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisb3PekB6GN5ExgGbQBiJxWEEKqYXYNEZlnNCUI7hPJLyjsInMQ', 'https://www-s.mlo.me/upen/v/2018/201806/20180606/201806061649035536106.jpg'] }, 
@@ -52,13 +61,63 @@ export class ProfileComponent implements OnInit {
 
   public comment: any = {};
 
-  constructor() { }
+  constructor(private httpService: HttpService,
+              private swa: SweetAlertService,
+              private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+    this.userId = params['id'];
+    });
+  }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.getProfileById();
+  }
 
   ngAfterViewInit(){
     window.scrollTo(0, 0);
     this.initCarruselEvent();
+  }
+
+  getProfileById(){
+    this.swa.loading('Obteniendo perfil...');
+    
+    this.httpService.buildGetRequest('user/get/' + this.userId, '')
+      .subscribe((data: any) => {
+        this.swa.close();
+        this.profile = data;
+
+        this.loadMedia();
+        console.log(this.profile);
+      }, (error) => {
+        this.swa.error('Ocurrió un problema', error.message);
+      });
+  }
+
+  openLink(url) {
+    window.open('_blank', url);
+  }
+
+  loadMedia(){
+    if(!this.profile.Profile.Media)
+      this.profile.Profile.Media = [];
+
+    if(!this.profile.Profile.Media) return;
+
+    this.profile.photos = [];
+    this.profile.videos = [];
+
+    for(let i = 0; i < this.profile.Profile.Media.length; i++){
+      if(this.profile.Profile.Media[i].MediaType == 1){ // Imagenes
+        if(this.profile.Profile.Media[i].MediaPosition == 1){ // Full Image
+          this.profile.uploadCoverPhoto = this.URL + this.profile.Profile.Media[i].Uri;
+        }else if(this.profile.Profile.Media[i].MediaPosition == 2){ // Profile Image
+          this.profile.uploadProfilePhoto = this.URL + this.profile.Profile.Media[i].Uri;
+        }
+        this.profile.photos.push({ img: this.URL + this.profile.Profile.Media[i].Uri, idMedia: this.profile.Profile.Media[i].IdMedia, uri: this.profile.Profile.Media[i].Uri });
+      }else if(this.profile.Profile.Media[i].MediaType == 2){ // Videos
+        this.profile.videos.push({ video: this.URL + this.profile.Profile.Media[i].Uri, idMedia: this.profile.Profile.Media[i].IdMedia, uri: this.profile.Profile.Media[i].Uri });
+      }
+    }
   }
 
   openModalPhotos(index){

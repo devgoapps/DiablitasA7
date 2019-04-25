@@ -23,11 +23,9 @@ export class AppComponent {
       'touch': false
     });
 
-    //setTimeout(() => {
     $('.toggle-container').click(() => {
       this.slideout.toggle();
     });
-    //}, 0);
     
     $('.opt').click(() => {
       this.slideout.close();  

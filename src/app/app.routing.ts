@@ -14,7 +14,7 @@ import { ActivationComponent } from './components/activation/activation.componen
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'ad', component: ProfileComponent },
+  { path: 'ad/:id', component: ProfileComponent },
   { path: 'profile/:id', component: EditableProfileComponent, canActivate: [AuthGuard] },
   { path: 'activation/:token', component: ActivationComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },

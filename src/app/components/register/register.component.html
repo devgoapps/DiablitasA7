@@ -61,7 +61,6 @@
 
       <div *ngIf="step == 1" class="register-panel" >
         <form #form="ngForm" (ngSubmit)="form.valid ? nextStep(): ''" novalidate autocomplete="off">
-
           <div class="row">
             <div class="col-sm-6 col-md-6">
               <label class="required">Nombre</label>
@@ -148,8 +147,8 @@
             <div class="col-sm-12 col-md-12">
               <label class="required">Zonas en las que trabajas</label>
 
-              <tag-input [(ngModel)]='register.Profile.Zones' name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
-                <tag-input-dropdown [autocompleteItems]="zones" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
+              <tag-input [(ngModel)]='register.Profile.Area' [identifyBy]="'Description'" [displayBy]="'Description'" name="fzones" #fzones="ngModel" required placeholder="Ejem. Polanco, Santa fe" secondaryPlaceholder="Ejem. Polanco, Santa fe" theme="dark" >
+                <tag-input-dropdown [autocompleteItems]="zones" [identifyBy]="'Description'" [displayBy]="'Description'" [showDropdownIfEmpty]="false" ></tag-input-dropdown>
               </tag-input>
 
               <div class="validation" *ngIf="form.submitted && fzones.errors" >

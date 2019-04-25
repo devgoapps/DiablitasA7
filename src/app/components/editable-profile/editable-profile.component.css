@@ -66,13 +66,13 @@
 .detail-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 25%;
+    flex: 28%;
 }
 
 .galery-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 75%;
+    flex: 72%;
 }
 
 .profile-panel {
@@ -462,6 +462,24 @@ label {
     border: 2px solid #fff;
     color: #fff;
     font-size: 50px;
+}
+
+.required-full-img {
+    background: rgba(206, 21, 21, 0.945);
+    position: absolute; 
+    left: 50%; 
+    top: 20%;
+    margin-left: -35px;
+    z-index: 3; 
+    width: 70px; 
+    height: 70px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 50%; 
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 30px;
 }
 
 .required-profile-img {
@@ -871,5 +889,13 @@ label {
     .profile-name-content {
         padding-left: 30%;
         padding-right: 15%;
+    }
+
+    .required-profile-img {
+        left: 15%; 
+    }
+    
+    .upload-profile-img {
+        left: 15%; 
     }
 }

@@ -21,8 +21,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.sessionService.isLoggedIn
       .subscribe((isLoggedIn) => {
-          console.log(isLoggedIn);
-          this.loggedIn = isLoggedIn;
+        this.loggedIn = isLoggedIn;
       }); 
   }
 

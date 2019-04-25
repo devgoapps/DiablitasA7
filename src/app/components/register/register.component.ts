@@ -43,17 +43,18 @@ export class RegisterComponent implements OnInit {
 
     this.swa.loading('Creando cuenta ...');
 
-    this.register.Profile.Areas = [];
-    for(let i = 0; i < this.register.Profile.Zones.length; i++){
-      this.register.Profile.Areas.push({ Description: this.register.Profile.Zones[i].value });
+    for(let i = 0; i < this.register.Profile.Area.length; i++){
+      this.register.Profile.Area[i] = {
+        Description: this.register.Profile.Area[i].Description
+      }
     }
-
+    
     this.register.Password = CryptoJS.SHA1(this.register.PasswordEncrypt);
     this.register.Password = CryptoJS.enc.Hex.stringify(this.register.Password);
 
     console.log(this.register);
 
-    this.httpService.buildPostRequest('user/Add', this.register)
+    this.httpService.buildPostRequest('user/add', this.register)
       .subscribe((data) => {
         this.swa.success('Cuenta creada', 'La cuenta se creó correctamente.', () => {
           this.step = 3;
@@ -75,6 +76,12 @@ export class RegisterComponent implements OnInit {
   }
 
   getCities(){
+    this.cities = [];
+    this.register.Profile.KeyTown = '';
+    this.zones = [];
+    this.register.Profile.Zones = [];
+    this.register.Profile.Area = [];
+
     let filter = { Filtering: { IdCatalog: 8, KeyState: this.register.Profile.KeyState }, Paging: { All: 1 } };
 
     this.httpService.buildPostRequest('catalog/get', filter)

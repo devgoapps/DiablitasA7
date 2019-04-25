@@ -27,7 +27,7 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     $('#myModal').modal('hide');
 
-    this.httpService.buildGetRequest('user/Activate', { token: this.token })
+    this.httpService.buildGetRequest('user/activate', { token: this.token })
       .subscribe((data) => {
         this.validate = true;
         this.swa.success('Cuenta validada', 'La cuenta se ha validado correctamente.');

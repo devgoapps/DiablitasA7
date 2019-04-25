@@ -67,8 +67,8 @@ export class NavbarComponent implements OnInit {
         this.swa.close();
         
         $('#login').modal('hide');
-        this.sessionService.login(data.id, data.token);
-        this.router.navigate(['profile', '100']);
+        this.sessionService.login(data.Id, data.Token);
+        this.router.navigate(['profile', data.Id]);
       }, (error) => {
         this.swa.error('Ocurrió un problema', error.Message);
       });
