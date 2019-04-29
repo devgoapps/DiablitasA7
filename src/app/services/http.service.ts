@@ -9,8 +9,8 @@ declare var $: any;
 @Injectable()
 export class HttpService {
 
-  	public API: string = 'http://220.1.1.243/diablitas/';
-  	//public API: string = 'http://models.destructor.mx/';
+  	//public API: string = 'http://220.1.1.243/diablitas/';
+  	public API: string = 'http://models.destructor.mx/';
 
 	constructor(private http: HttpClient) { }
 	  

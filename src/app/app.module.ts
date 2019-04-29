@@ -15,6 +15,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { NguCarouselModule } from '@ngu/carousel';
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 
 // Router
 import { AppRoutingModule } from './app.routing';
@@ -74,7 +75,8 @@ import { ActivationComponent } from './components/activation/activation.componen
     NgxMaskModule.forRoot(),
     RatingModule.forRoot(),
     RecaptchaModule.forRoot(),
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    LazyLoadImagesModule
   ],
   providers: [
     HttpService,

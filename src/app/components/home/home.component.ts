@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToProfile(){
-    this.router.navigate(['ad', '66']);
+    this.router.navigate(['ad', '67']);
   }
   
   openLevelsModal(){

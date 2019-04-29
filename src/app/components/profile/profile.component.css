@@ -144,6 +144,15 @@
     background: rgb(255, 0, 98); 
 }
 
+.no-content {
+    text-align: center; 
+    color: #fff;
+}
+
+.no-content span {
+    font-size: 60px;
+}
+
 .tabs-content {
     display: flex; 
     justify-content: center;
@@ -212,9 +221,10 @@ video {
 
 .card-galery {
 	overflow: hidden;
-	background: black;
+    background: #101010;
     cursor: pointer;
     border-radius: 10px;
+    border: 1px dashed #191919;
 }
 
 .card-galery img {
@@ -445,7 +455,7 @@ label {
     }
 
     .girl-name {
-        font-size: 32px; 
+        font-size: 28px; 
     }
 
     .girl-city {
@@ -490,7 +500,7 @@ label {
     }
 
     .comment-modal {
-        width: 300px;
+        width: 320px;
     }
 
     .comment-body {

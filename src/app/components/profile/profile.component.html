@@ -1,6 +1,6 @@
 <div >
   
-  <div class="header-profile"  >
+  <div class="header-profile" >
     <img [src]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
     <img [src]="profile.uploadProfilePhoto" class="profile-img" draggable="false" />
     
@@ -9,7 +9,7 @@
         <span ><i class="fa fa-diamond"></i> {{ profile.Name }}</span>
         <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> 1,356</small>
       </div>
-      <span class="girl-city" >Monterrey</span>
+      <span class="girl-city" >{{ profile.Profile.DescriptionTown }}, {{ profile.Profile.DescriptionState }}</span>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
       <div class="profile-panel" > 
         <div class="list-item" >
           <span>Nacionalidad: </span>
-          <span >Mexicana</span>
+          <span >{{ profile.Profile.DescriptionNationality }}</span>
         </div>
         <div class="list-item" >
           <span>Edad: </span>
@@ -27,15 +27,15 @@
         </div>
         <div class="list-item" >
           <span>Color de Piel: </span>
-          <span >Blanca</span>
+          <span >{{ profile.Profile.DescriptionSkinColor }}</span>
         </div>
         <div class="list-item" >
           <span>Color de Pelo: </span>
-          <span >Castaño claro</span>
+          <span >{{ profile.Profile.DescriptionHairColor }}</span>
         </div>
         <div class="list-item" >
           <span>Color de Ojos: </span>
-          <span >Verdes</span>
+          <span >{{ profile.Profile.DescriptionEyeColor}}</span>
         </div>
         <div class="list-item" >
           <span>Medidas: </span>
@@ -43,15 +43,25 @@
         </div>
         <div class="list-item" >
           <span>Altura: </span>
-          <span >{{ profile.Profile.Height }} m.</span>
+          <span >{{ (profile.Profile.Height / 100) | number: '1.2-2' }} m.</span>
         </div>
         <div class="list-item" >
           <span>Peso: </span>
           <span >{{ profile.Profile.Weight }} kg.</span>
         </div>
-        <div class="list-item" >
-          <span>Zonas: </span><br>
-          <span >Santa fe, Polanco, Reforma, Condesa, Revolución</span>
+        <div class="list-item" style="justify-content: flex-start;">
+          <span style="flex: 100%; margin-bottom: 10px;">Zonas: </span>
+          <span style="margin-right: 10px;" *ngFor="let area of profile.Profile.Area; let i = index;" >{{ area.Description }}<span *ngIf="i < (profile.Profile.Area.length - 1)" >,</span></span>
+        </div>
+
+        <div class="list-item" style="justify-content: flex-start;">
+          <span style="flex: 100%; margin-bottom: 10px;">Lenguajes: </span>
+          <span style="margin-right: 10px;" *ngFor="let language of profile.Profile.Language; let i = index;" >{{ language.Description }}<span *ngIf="i < (profile.Profile.Language.length - 1)" >,</span></span>
+        </div>
+
+        <div class="list-item" style="justify-content: flex-start;">
+          <span style="flex: 100%; margin-bottom: 10px;">Locaciones: </span>
+          <span style="margin-right: 10px;" *ngFor="let location of profile.Profile.Location; let i = index;" >{{ location.Description }}<span *ngIf="i < (profile.Profile.Location.length - 1)" >,</span></span>
         </div>
         
         <div class="list-item" >
@@ -113,7 +123,7 @@
           <span class="celphone"><i class="fas fa-mobile-alt"></i> {{ profile.Profile.Phone }}</span>
         </div>
 
-        <div >
+        <div style="white-space: pre-wrap; background: #191919; padding: 25px 10px;" >
             {{ profile.Profile.Description }}
         </div>
         
@@ -122,7 +132,7 @@
         </div>
 
         <div >
-          <span class="tag" *ngFor="let service of profile.Profile?.Service; let i = index;">{{ service.Description }} <i class="fa fa-times" style="color: #fff;" (click)="removeService(i)"></i></span>
+          <span class="tag" *ngFor="let service of profile.Profile?.Service; let i = index;">{{ service.Description }}</span>
         </div>
       
         <div class="section-title" >
@@ -133,15 +143,15 @@
         <div >
           <div class="list-item">
             <span>1 hora: </span>
-            <span >{{ profile.Profile.Price1 }}</span>
+            <span >{{ profile.Profile.Price1 | currency }}</span>
           </div>
           <div class="list-item">
             <span>2 horas: </span>
-            <span >{{ profile.Profile.Price2 }}</span>
+            <span >{{ profile.Profile.Price2 | currency }}</span>
           </div>
           <div class="list-item">
             <span>3 horas: </span>
-            <span >{{ profile.Profile.Price3 }}</span>
+            <span >{{ profile.Profile.Price3 | currency }}</span>
           </div>
           <div class="list-item">
             <span>Toda la Noche: </span>
@@ -172,10 +182,10 @@
         </div>
 
         <div class="row" >
-          <div class="col-md-4" *ngFor="let video of videos" >
+          <div class="col-md-4" *ngFor="let video of profile.videos" >
           
             <video height="200" controls >
-              <source [src]="video" type="video/mp4">
+              <source [src]="video.video" type="video/mp4">
               Your browser does not support HTML5 video.
             </video>
                 
@@ -188,14 +198,14 @@
 
       
         <div class="row" >
-          <div class="col-xs-6 col-md-4" *ngFor="let model of modelPhotos; let i = index;" >
+          <div class="col-xs-6 col-md-4" *ngFor="let photo of profile.photos; let i = index;" >
             <div class="card-galery" (click)="openModalPhotos(i)" >
-              <img [src]="model.img" draggable="false" />
+              <img [lazyLoad]="photo.img" draggable="false" />
             </div>
           </div>
         </div>
 
-        <div class="info-content" id="important" >
+        <div class="info-content" id="important2" >
           <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
           <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
         </div>
@@ -210,8 +220,8 @@
 
   <div class="icon-bar">
     <a href="javascript: void(0)" class="important" (click)="goToImportant()"><i class="fas fa-exclamation-triangle"></i></a> 
-    <a href="javascript: void(0)" class="twitter"><i class="fa fa-twitter"></i></a> 
-    <a href="javascript: void(0)" class="instagram"><i class="fa fa-instagram"></i></a> 
+    <a href="javascript: void(0)" class="twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></a> 
+    <a href="javascript: void(0)" class="instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></a> 
   </div>
 
   
@@ -233,8 +243,8 @@
           <button class='right-banner' (click)="nextImg()"><i class="fa fa-angle-right"></i></button>
 
           <div style="text-align: center; padding: 10px 0px;">
-            <span *ngFor="let photo of modelPhotos; let i = index;" >
-              <span class="dot" [ngClass]="{ 'active-dot': currentIndex == i }" (click)="img = modelPhotos[i].img; currentIndex = i;"></span>
+            <span *ngFor="let photo of profile.photos; let i = index;" >
+              <span class="dot" [ngClass]="{ 'active-dot': currentIndex == i }" (click)="img = profile.photos[i].img; currentIndex = i;"></span>
             </span>
           </div>
         </div>
@@ -304,7 +314,7 @@
             </div>
           </div>
 
-          <!--div class="row" style="margin: 10px 0px;">
+          <div class="row" style="margin: 10px 0px;">
             <div class="col-sm-12 col-md-12">
               <re-captcha [(ngModel)]="comment.captcha" #fcaptcha="ngModel" name="fcaptcha" required [siteKey]="siteKey" ></re-captcha>
 
@@ -314,7 +324,7 @@
                 </span>
               </div>
             </div>
-          </div-->
+          </div>
 
 
           <div class="comment-btn-content">

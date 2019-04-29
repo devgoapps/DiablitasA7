@@ -18,8 +18,9 @@ export class EditableProfileComponent implements OnInit {
   public userId: number = null;
   public img: string = '';
   public currentIndex: number = 0;
-  public URL: string = 'http://220.1.1.243/diablitas/media/';
-
+  //public URL: string = 'http://220.1.1.243/diablitas/media/';
+  public URL: string = 'http://models.destructor.mx/media/';
+  
   public profile: any = { Profile: { } };
 
   public service: any = {};
@@ -96,7 +97,7 @@ export class EditableProfileComponent implements OnInit {
   }
 
   openLink(url) {
-    window.open('_blank', url);
+    window.open(url, '_blank');
   }
 
   loadMedia(){
