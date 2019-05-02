@@ -17,8 +17,8 @@
 .profile-img {
     position: absolute;
     width: 250px;
-    height: 250px; 
-    left: 2%; 
+    height: 250px;
+    left: calc(15% - 125px); 
     bottom: -20px; 
     object-fit: cover; 
     object-position: 50% 20%; 
@@ -42,7 +42,7 @@
     background: rgb(0, 0, 0, 0.6);
     color: #fff; 
     padding: 10px 30px; 
-    padding-left: 320px;
+    padding-left: 30%;
 }
 
 .girl-name {
@@ -66,13 +66,13 @@
 .detail-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 28%;
+    flex: 30%;
 }
 
 .galery-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 72%;
+    flex: 70%;
 }
 
 .profile-panel {
@@ -318,7 +318,7 @@ video {
     min-height: 400px;
     min-width: 500px;
 
-    max-height: 600px;
+    max-height: 700px;
     max-width: 800px;
 
     object-fit: cover;
@@ -485,7 +485,7 @@ label {
 .required-profile-img {
     background: rgba(206, 21, 21, 0.945);
     position: absolute; 
-    left: 125px; 
+    left: calc(15% - 35px); 
     bottom: 180px; 
     z-index: 3; 
     width: 70px; 
@@ -503,7 +503,7 @@ label {
     cursor: pointer; 
     background: rgb(0, 0, 0, .5); 
     position: absolute; 
-    left: 112px; 
+    left: calc(15% - 40px); 
     bottom: 20px; 
     z-index: 3; 
     width: 80px; 
@@ -613,7 +613,7 @@ label {
     font-size: 20px; 
     border: none; 
     outline: none; 
-    padding: 5px 15px; 
+    padding: 0px;
     background: #FD297B; 
     color: #fff; 
     margin-left: 10px;
@@ -674,6 +674,38 @@ label {
 ::ng-deep.ng2-tag-input__text-input {
     background: #252525 !important;
     color: #fff !important;
+}
+
+.membership-status {
+    position: sticky;
+    left: 99%;
+    bottom: 1%;
+    width: 400px;
+    background-color: #FD297B; 
+    color: #fff; 
+    text-align: center;   
+    z-index: 1; 
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.pay-status {
+    font-size: 35px;
+    width: 70px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+.membership-description {
+    padding-left: 15px;
+    border-left: 1px dashed #fff;
+    font-size: 18px;
 }
 
 @media only screen and (max-width: 599px) {
@@ -753,8 +785,8 @@ label {
     }
 
     .profile-img {
-        width: 160px;
-        height: 160px; 
+        width: 200px;
+        height: 200px; 
         left: 50%; 
         top: 50%; 
         transform: translate(-50%, -50%);
@@ -787,7 +819,7 @@ label {
         min-height: 250px;
         min-width: 330px;
     
-        max-height: 500px;
+        max-height: 600px;
         max-width: 330px;
     
         object-fit: cover;
@@ -859,11 +891,31 @@ label {
     .profile-panel-2 {
         padding: 10px;
     }
+
+    .membership-status {
+        width: 350px;
+        padding: 10px;
+    }
+    
+    .pay-status {
+        font-size: 20px;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+    
+    .membership-description {
+        padding-left: 10px;
+        font-size: 14px;
+    }
 } 
 
 @media only screen and (min-width: 1200px) {
-
-    
+    .profile-img {
+        width: 280px;
+        height: 280px; 
+        left: calc(15% - 140px); 
+    }
 }
 
 
@@ -873,29 +925,33 @@ label {
     }
 
     .detail-col {
-        flex: 18%;
+        flex: 25%;
         padding-left: 10%;
     }
     
     .galery-col {
-        flex: 62%;
+        flex: 55%;
         padding-right: 10%;
     }
 
     .profile-img {
-        left: 11%; 
+        width: 300px;
+        height: 300px; 
+        left: calc(22.5% - 150px); 
     }
     
     .profile-name-content {
-        padding-left: 30%;
+        padding-left: 35%;
         padding-right: 15%;
     }
 
     .required-profile-img {
-        left: 15%; 
+        left: calc(22.5% - 35px); 
+        bottom: 250px;
     }
     
     .upload-profile-img {
-        left: 15%; 
+        left: calc(22.5% - 40px); 
     }
+
 }

@@ -18,10 +18,11 @@ export class ProfileComponent implements OnInit {
   public tab: string = 'detail';
   public img: string = '';
   public currentIndex: number = 0;
+  public loading: string = 'assets/img/loading.gif';
 
   public userId: number = null;
-  //public URL: string = 'http://220.1.1.243/diablitas/media/';
-  public URL: string = 'http://models.destructor.mx/media/';
+  public URL: string = 'http://220.1.3.203/diablitas/media/';
+  //public URL: string = 'http://models.destructor.mx/media/';
 
   public profile: any = { Profile: { } };
   public comment: any = {};
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
               private swa: SweetAlertService,
               private route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
-    this.userId = params['id'];
+      this.userId = params['id'];
     });
   }
 
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    window.scrollTo(0, 0);
+    //window.scrollTo(0, 0);
     this.initCarruselEvent();
   }
 
@@ -83,6 +84,24 @@ export class ProfileComponent implements OnInit {
         this.profile.videos.push({ video: this.URL + this.profile.Profile.Media[i].Uri });
       }
     }
+  }
+
+  createComment() {
+    this.comment.IdProfile = this.profile.Profile.IdProfile;
+
+    this.swa.loading('Guardando comentario...');
+    
+    this.httpService.buildPostRequest('user/public/comment', this.comment)
+      .subscribe((data: any) => {
+        this.swa.close();
+
+        this.swa.success('Comentario Agregado', 'El comentario fue agregado correctamente', () => {
+          this.getProfileById();
+          $('#comment').modal('hide');
+        });
+      }, (error) => {
+        this.swa.error('Ocurrió un problema', error.message);
+      });
   }
 
   openModalPhotos(index){

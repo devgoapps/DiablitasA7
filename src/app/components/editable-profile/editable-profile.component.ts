@@ -18,8 +18,9 @@ export class EditableProfileComponent implements OnInit {
   public userId: number = null;
   public img: string = '';
   public currentIndex: number = 0;
-  //public URL: string = 'http://220.1.1.243/diablitas/media/';
-  public URL: string = 'http://models.destructor.mx/media/';
+  public loading: string = 'assets/img/loading.gif';
+  public URL: string = 'http://220.1.3.203/diablitas/media/';
+  //public URL: string = 'http://models.destructor.mx/media/';
   
   public profile: any = { Profile: { } };
 
@@ -35,6 +36,16 @@ export class EditableProfileComponent implements OnInit {
   public colorEyes: Array<any> = [];
   public colorSkin: Array<any> = [];
   public colorHair: Array<any> = [];
+
+  public MEDIA: any = {
+    IMAGE: 1,
+    VIDEO: 2,
+    BACK: 1,
+    PROFILE: 2,
+    GALERY: 3
+  }
+
+  public measuresRegex = /^(\d{2,3})*-(\d{2,3})*-(\d{2,3})/;
 
   constructor(private httpService: HttpService,
               private swa: SweetAlertService,
@@ -87,7 +98,7 @@ export class EditableProfileComponent implements OnInit {
         this.swa.close();
         this.profile = data;
 
-        this.loadMedia();
+        this.getMedia();
         this.getCities();
         this.getServices();
         console.log(this.profile);
@@ -98,6 +109,18 @@ export class EditableProfileComponent implements OnInit {
 
   openLink(url) {
     window.open(url, '_blank');
+  }
+
+  getMedia(){
+    this.httpService.buildGetRequest('user/media/' + this.profile.Profile.IdProfile, '')
+      .subscribe((data: any) => {
+        console.log(data);
+        this.profile.Profile.Media = data;
+
+        this.loadMedia();
+      }, (error) => {
+        this.swa.error('Ocurrió un problema', error.message);
+      });
   }
 
   loadMedia(){
@@ -124,8 +147,6 @@ export class EditableProfileComponent implements OnInit {
   }
 
   saveProfile(){
-    console.log('GUARDANDO PERFIL ...');
-
     for(let i = 0; i < this.profile.Profile.Area.length; i++){
       if(this.profile.Profile.Area[i].IdArea){
         delete this.profile.Profile.Area[i].IdArea;
@@ -204,25 +225,24 @@ export class EditableProfileComponent implements OnInit {
     this.profile.Profile.Service.splice(index, 1);
   }
 
-  uploadCoverPhoto(event){
+  uploadMedia(event, mediaType, mediaPosition){
     let target = event.target || event.srcElement;
     if (target.files && target.files[0]) {
         let fileReader = new FileReader();
         fileReader.onload = () => {
-          //this.profile.uploadCoverPhoto = fileReader.result;
-          this.uploadMedia(fileReader.result, 1, 1);
+          this.sendMedia(fileReader.result, mediaType, mediaPosition);
         };
         fileReader.readAsDataURL(target.files[0]);
     }
   }
 
-  uploadProfilePhoto(event){
+  /*uploadProfilePhoto(event){
     let target = event.target || event.srcElement;
     if (target.files && target.files[0]) {
         let fileReader = new FileReader();
         fileReader.onload = () => {
           //this.profile.uploadProfilePhoto = fileReader.result;
-          this.uploadMedia(fileReader.result, 1, 2);
+          this.sendMedia(fileReader.result, 1, 2);
         };
         fileReader.readAsDataURL(target.files[0]);
     }
@@ -234,7 +254,7 @@ export class EditableProfileComponent implements OnInit {
         let fileReader = new FileReader();
         fileReader.onload = () => {
           //this.profile.photos.push({ img: fileReader.result });
-          this.uploadMedia(fileReader.result, 1, 3);
+          this.sendMedia(fileReader.result, 1, 3);
         };
         fileReader.readAsDataURL(target.files[0]);
     }
@@ -246,23 +266,25 @@ export class EditableProfileComponent implements OnInit {
         let fileReader = new FileReader();
         fileReader.onload = () => {
           //this.profile.videos.push({ video: fileReader.result });
-          this.uploadMedia(fileReader.result, 2, 3);
+          this.sendMedia(fileReader.result, 2, 3);
         };
         fileReader.readAsDataURL(target.files[0]);
     }
+  }*/
+
+  removeMedia(idMedia, uri){
+    this.deleteMedia(idMedia, uri);
   }
 
-  removeVideo(index, idMedia, uri){
-    this.profile.videos.splice(index, 1);
+  /*removeVideo(index, idMedia, uri){
     this.deleteMedia(idMedia, uri);
   }
 
   removePhoto(index, idMedia, uri){
-    this.profile.photos.splice(index, 1);
     this.deleteMedia(idMedia, uri);
-  }
+  }*/
 
-  uploadMedia(base64, mediaType, mediaPosition){
+  sendMedia(base64, mediaType, mediaPosition){
     $('#profileImg').wrap('<form>').closest('form').get(0).reset();
     $('#profileImg').unwrap();
 
@@ -291,8 +313,8 @@ export class EditableProfileComponent implements OnInit {
         console.log(data);
         this.swa.close();
 
-        this.getProfileById();
-        this.loadMedia();
+        this.profile.Profile.Media.push({ MediaType: data.MediaType, MediaPosition: data.MediaPosition, Uri: data.Uri });
+        this.getMedia();
       }, (error) => {
         this.swa.error('Ocurrió un problema', error.message);
       });    
@@ -303,11 +325,8 @@ export class EditableProfileComponent implements OnInit {
 
     this.httpService.buildPostRequest('user/media/delete', { IdMedia: idMedia, Uri: uri })
       .subscribe((data: any) => {
-        console.log(data);
         this.swa.close();
-
-        this.getProfileById();
-        this.loadMedia();
+        this.getMedia();
       }, (error) => {
         this.swa.error('Ocurrió un problema', error.message);
       });    

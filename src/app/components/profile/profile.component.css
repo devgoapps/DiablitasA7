@@ -17,7 +17,7 @@
     position: absolute;
     width: 250px;
     height: 250px; 
-    left: 2%; 
+    left: calc(14% - 125px); 
     bottom: -20px; 
     object-fit: cover; 
     object-position: 50% 20%; 
@@ -34,7 +34,7 @@
     background: rgb(0, 0, 0, 0.6);
     color: #fff; 
     padding: 10px 30px; 
-    padding-left: 320px;
+    padding-left: 28%;
 }
 
 .girl-name {
@@ -58,13 +58,13 @@
 .detail-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 25%;
+    flex: 28%;
 }
 
 .galery-col {
     margin: 10px 0px; 
     padding: 5px; 
-    flex: 75%;
+    flex: 72%;
 }
 
 .profile-panel {
@@ -441,8 +441,8 @@ label {
     }
 
     .profile-img {
-        width: 190px;
-        height: 190px; 
+        width: 200px;
+        height: 200px; 
         left: 50%; 
         top: 50%; 
         margin-left: -95px;
@@ -459,7 +459,7 @@ label {
     }
 
     .girl-city {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .card-galery img {
@@ -500,7 +500,7 @@ label {
     }
 
     .comment-modal {
-        width: 320px;
+        width: 340px;
     }
 
     .comment-body {
@@ -513,8 +513,11 @@ label {
 } 
 
 @media only screen and (min-width: 1200px) {
-
-    
+    .profile-img {
+        width: 280px;
+        height: 280px; 
+        left: calc(14% - 140px); 
+    }
 }
 
 
@@ -524,22 +527,24 @@ label {
     }
 
     .detail-col {
-        flex: 18%;
+        flex: 24%;
         padding-left: 10%;
     }
     
     .galery-col {
-        flex: 62%;
+        flex: 56%;
         padding-right: 10%;
     }
 
     .profile-img {
-        left: 11%; 
+        width: 300px;
+        height: 300px; 
+        left: calc(22% - 150px); 
     }
     
     .profile-name-content {
-        padding-left: 30%;
-        padding-right: 15%;
+        padding-left: 34%;
+        padding-right: 10%;
     }
 }
 

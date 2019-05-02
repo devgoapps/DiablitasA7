@@ -2,11 +2,11 @@
     <form #form="ngForm" (ngSubmit)="form.valid && isValid() ? saveProfile(): initTooltips()" novalidate autocomplete="off" id="profile-form" >
 
     <div class="header-profile">
-        <img [src]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
+        <img [defaultImage]="loading" [lazyLoad]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
         <label for="coverImg" class="upload-cover-img" ><i class="fas fa-sync-alt" ></i></label>
         <div id="full-img-error" class="required-full-img" *ngIf="form.submitted && !profile.uploadCoverPhoto" ><i class="fas fa-exclamation-circle"></i></div>
         
-        <img [src]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
+        <img [defaultImage]="loading" [lazyLoad]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
         <label for="profileImg" class="upload-profile-img" ><i class="fas fa-sync-alt" ></i></label>
         <div id="profile-img-error" class="required-profile-img" *ngIf="form.submitted && !profile.uploadProfilePhoto" ><i class="fas fa-exclamation-circle"></i></div>
 
@@ -79,8 +79,8 @@
         </div>
 
         <div class="invisible">
-          <input type="file" id="profileImg" (change)="uploadProfilePhoto($event)" accept="image/*;capture=filesystem" />
-          <input type="file" id="coverImg" (change)="uploadCoverPhoto($event)" accept="image/*;capture=filesystem" />
+          <input type="file" id="profileImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.PROFILE)" accept="image/jpeg;capture=filesystem" />
+          <input type="file" id="coverImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.BACK)" accept="image/jpeg;capture=filesystem" />
         </div>
     </div>
     
@@ -200,11 +200,14 @@
           </div>
           <div class="list-item" >
             <span>Medidas: </span>
-            <input type="text" [(ngModel)]="profile.Profile.Measures" name="ffigure" #ffigure="ngModel" required class="profile-ctrl" placeholder="Ejem. 90-60-100" />
+            <input type="text" [(ngModel)]="profile.Profile.Measures" maxlength="11" [pattern]="measuresRegex" name="ffigure" #ffigure="ngModel" required class="profile-ctrl" placeholder="Ejem. 90-60-100" />
 
             <div class="validation" *ngIf="form.submitted && ffigure.errors" >
               <span [hidden]="!ffigure.errors.required" >
                 Las medidas son requeridas.
+              </span>
+              <span [hidden]="!ffigure.errors.pattern" >
+                El formato no es correcto
               </span>
             </div>
           </div>
@@ -440,7 +443,7 @@
           
           <div class="info-content" id="important" >
             <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
-            <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+            <span class="info-mark">{{ profile.Name }}</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">{{ profile.Name }}</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
           </div>
     
         </div>
@@ -450,15 +453,15 @@
   
           <div class="section-title" style="margin-top: 0;" >
             <span class="title"><i class="fas fa-video"></i> Videos</span>
-            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;" for="videos"><i class="fas fa-plus"></i> Agregar</label></button>
+            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff; padding: 10px 20px;" for="videos"><i class="fas fa-plus"></i> Agregar</label></button>
           </div>
 
-          <input type="file" style="display: contents;" id="videos" (change)="uploadVideo($event)" class="invisible" accept="video/*;capture=filesystem" />
+          <input type="file" style="display: contents;" id="videos" (change)="uploadMedia($event, MEDIA.VIDEO, MEDIA.GALERY)" class="invisible" accept="video/mp4;capture=filesystem" />
   
           <div class="row" >
             <div class="col-md-4" *ngFor="let video of profile.videos; let i = index;">
               <div style="position: relative;" >
-                <label (click)="removeVideo(i, video.idMedia, video.uri)" class="remove-video-icon" ><i class="fas fa-times" ></i></label>
+                <label (click)="removeMedia(video.idMedia, video.uri)" class="remove-video-icon" ><i class="fas fa-times" ></i></label>
               
                 <video height="200" controls >
                   <source [src]="video.video" type="video/mp4">
@@ -476,16 +479,16 @@
   
           <div class="section-title" >
             <span class="title"><i class="fas fa-camera-retro"></i> Fotografías</span>
-            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;" for="photos"><i class="fas fa-plus"></i> Agregar</label></button>
+            <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;padding: 10px 20px;" for="photos"><i class="fas fa-plus"></i> Agregar</label></button>
           </div>
 
-          <input type="file" style="display: contents;" id="photos" (change)="uploadPhoto($event)" class="invisible" accept="image/*;capture=filesystem" />
+          <input type="file" style="display: contents;" id="photos" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.GALERY)" class="invisible" accept="image/jpeg;capture=filesystem" />
   
           <div class="row" >
             <div class="col-xs-6 col-md-4" *ngFor="let photo of profile.photos; let i = index;">
               <div class="card-galery" >
-                <label (click)="removePhoto(i, photo.idMedia, photo.uri)" class="remove-img-icon" ><i class="fas fa-times" ></i></label>
-                <img [src]="photo.img" draggable="false" (click)="openModalPhotos(i)" />
+                <label (click)="removeMedia(photo.idMedia, photo.uri)" class="remove-img-icon" ><i class="fas fa-times" ></i></label>
+                <img [defaultImage]="loading" [lazyLoad]="photo.img" draggable="false" (click)="openModalPhotos(i)" />
               </div>
             </div>
 
@@ -499,7 +502,7 @@
   
           <div class="info-content" id="important2" >
             <span class="info-mark" >AVISO IMPORTANTE</span><br><br>
-            <span class="info-mark">LuceroHot</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">LuceroHot</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
+            <span class="info-mark">{{ profile.Name }}</span> ha firmado una carta consentimiento y un convenio de publicidad en el que manifiesta ser una <span class="info-mark">modelo 100% independiente</span>, acredita ser <span class="info-mark">mayor de 18 años</span> en pleno uso de sus facultades físicas y mentales, permitiendo a <span class="info-mark">Diablitas</span> publicar el material fotográfico que le hace llegar y no está siendo obligada, amenazada ni sometida por ninguna persona, siendo <span class="info-mark">{{ profile.Name }}</span>  la única responsable de la finalidad y los encuentros que llegara a tener con las personas que la contacten por este medio y por lo tanto deslinda a <span class="info-mark">Diablitas</span> y a las personas que forman parte de esta página de cualquier problema legal ocasionado con el anuncio.
           </div>
   
         </div>
@@ -515,9 +518,13 @@
       <a href="javascript: void(0)" class="twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></a> 
       <a href="javascript: void(0)" class="instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></a>
     </div>
+
+    
   
     
   </div>
+
+
   
   
   <div class="modal fade" role="dialog" id="edit-photo">
@@ -545,3 +552,9 @@
       </div>
     </div>
   </div>
+
+
+
+<div class="membership-status">
+  <span class="pay-status"><i class="fa fa-check"></i></span><span class="membership-description">Membresia: <b>DIAMOND INACTIVA</b><br><small>!Tu perfil no estara visible hasta que realices el pago de tu subscripción¡</small></span>
+</div>

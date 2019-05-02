@@ -1,40 +1,15 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-/*
-declare var axios: any;
-declare var $: any;
-*/
+
 @Injectable()
 export class HttpService {
 
-  	//public API: string = 'http://220.1.1.243/diablitas/';
-  	public API: string = 'http://models.destructor.mx/';
+  	public API: string = 'http://220.1.3.203/diablitas/';
+  	//public API: string = 'http://models.destructor.mx/';
 
 	constructor(private http: HttpClient) { }
-	  
-	/*buildUploadRequest(uri, data){
-		console.log('Con AXIOS');
-		return new Promise((resolve, reject) => {
-			var settings = {
-				"url": this.API + uri,
-				"method": "POST",
-				"headers": {
-				  "Authorization": "Bearer " + sessionStorage.getItem('token'),
-				},
-				"processData": false,
-				"contentType": false,
-				"mimeType": "multipart/form-data",
-				"data": data
-			  }
-			  
-			  $.ajax(settings).then(function (response) {
-				console.log(response);
-				resolve(response)
-			  });
-		});
-   	}*/
 
 	buildGetRequest(uri, params?) {
 		return this.http
@@ -71,5 +46,4 @@ export class HttpService {
 		else 
 			return throwError(error.error);
 	}
-
 }
