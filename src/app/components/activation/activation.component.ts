@@ -32,7 +32,7 @@ export class ActivationComponent implements OnInit {
         this.validate = true;
         this.swa.success('Cuenta validada', 'La cuenta se ha validado correctamente.');
       }, (error) => {
-        this.swa.error('Ocurrió un problema', 'No se ha podido validar la cuenta.');
+        this.swa.info('No se ha podido validar la cuenta.', '');
       });
   }
 

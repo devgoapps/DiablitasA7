@@ -49,6 +49,17 @@ export class SweetAlertService {
     Swal.fire(options);
   }
 
+  info(title = '', text = '') {
+    Swal.fire({ 
+      title: title, 
+      text: text, 
+      type: 'warning', 
+      onBeforeOpen: function closeLoading() {
+        Swal.hideLoading();
+      }
+    });
+  }
+
   confirm(title = '', text = '', callbackConfirm?) {
     let options: any = {
       type: 'warning',

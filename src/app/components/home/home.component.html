@@ -24,28 +24,30 @@
         </div>
       </div-->
     
-      <ngu-carousel #bannerCarousel [inputs]="carouselBanner" [dataSource]="fullModels" >
+      <ngu-carousel #bannerCarousel [inputs]="carouselBanner" [dataSource]="headerAds" >
         <ngu-item NguCarouselItem *nguCarouselDef="let item; let j = index"  >
           <div class="card-full" >
-            <img  [src]="item.img" draggable="false" />
-            <div class="info-container">
-              <span class="slogan">{{ item.name }} - {{ item.city }}</span>
-              <span class="slogan-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-              <button class="play-btn" (click)="goToProfile()" >Visitar perfil</button>
+            <img [defaultImage]="loading" [lazyLoad]="item.Photo1"  draggable="false" />
+            
+            <div class="info-container" *ngIf="item && item.IdUser" >
+              <span class="slogan">{{ item.Name | titlecase }}</span>
+              <span class="slogan-text"><i class="fa fa-diamond"></i> {{ item.TownDescription | titlecase }}, {{ item.StateDescription | titlecase }}</span>
+              <button class="play-btn" (click)="goToProfile(item.IdUser)" >Visitar perfil</button>
             </div>
             <div class="overlay"></div>
           </div>
+
         </ngu-item>
     
         <button NguCarouselPrev class='left-banner'><i class="fa fa-angle-left"></i></button>
         <button NguCarouselNext class='right-banner'><i class="fa fa-angle-right"></i></button>
         
-        <div style="text-align: center; padding: 10px 0px;" NguCarouselPoint >
-          <span *ngFor="let item of bannerCarousel.pointNumbers; let i = index;" >
-            <span class="dot" [ngClass]="{ 'active-dot': i == bannerCarousel.activePoint }" (click)="bannerCarousel.moveTo(i)"></span>
-          </span>
-        </div>
       </ngu-carousel>
+      <!--div style="text-align: center; padding: 10px 0px;" >
+        <span *ngFor="let item of headerAds; let i = index;" >
+          <span class="dot" [ngClass]="{ 'active-dot': i == j }" (click)="moveTo(i)"></span>
+        </span>
+      </div-->
     </div>
   
     <!-- MAIN SECTION -->
@@ -67,24 +69,24 @@
       </div>
   
       <div  >
-        <ngu-carousel #tileCarousel [inputs]="carouselTile" [dataSource]="diamondModels" id="diamond">
+        <ngu-carousel #tileCarousel [inputs]="carouselTile" [dataSource]="diamondAds" id="diamond">
           <ngu-tile *nguCarouselDef="let item; let i = index" style="padding: 3px;" >
             <div class="card-diamond" >
-              <span class="like">Certificación <i class="fa fa-diamond"></i></span>
+              <span class="like"><i class="fa fa-diamond"></i> Membresia</span>
               
               <div class="imgs">
-                <img class="bottom"  [src]="item.imgs[1]" draggable="false"  />
-                <img class="top"  [src]="item.imgs[0]" draggable="false"  />
+                <img class="bottom" [defaultImage]="loading" [lazyLoad]="item.Photo2" draggable="false"  />
+                <img class="top" [defaultImage]="loading" [lazyLoad]="item.Photo1" draggable="false"  />
               </div>
               
-              <div class="content">
+              <div class="content" *ngIf="item && item.IdUser" >
                 <div style="text-align: left;">
-                  <span >{{ item.name }}</span>
-                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
-                  <small >{{ item.city }}</small>  
+                  <span >{{ item.Name | titlecase }}</span>
+                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> {{ item.LikeCounter }}</span><br> 
+                  <small >{{ item.StateDescription | titlecase }}</small>  
                 </div>
                 
-                <button class="profile-btn" (click)="goToProfile()" >Visitar perfil</button>
+                <button class="profile-btn" (click)="goToProfile(item.IdUser)" >Visitar perfil</button>
               </div>
               
             </div>
@@ -93,11 +95,11 @@
           <button NguCarouselPrev class='left-tile'><i class="fa fa-angle-left"></i></button>
           <button NguCarouselNext class='right-tile'><i class="fa fa-angle-right"></i></button>
           
-          <div style="text-align: center; padding: 10px 0px;" NguCarouselPoint >
+          <!--div style="text-align: center; padding: 10px 0px;" NguCarouselPoint >
             <span *ngFor="let item of tileCarousel.pointNumbers; let i = index;" >
               <span class="dot" [ngClass]="{ 'active-dot': i == tileCarousel.activePoint }" (click)="tileCarousel.moveTo(i)"></span>
             </span>
-          </div>
+          </div-->
         </ngu-carousel>
       </div>
   
@@ -108,33 +110,38 @@
       </div>
   
       <div class="row" >
-        <div class="col-lg-15 col-xs-6 col-sm-3 col-md-3" *ngFor="let model of silverModels" style="margin-top: 10px; margin-bottom: 10px;">
+        <div class="col-lg-15 col-xs-6 col-sm-3 col-md-3" *ngFor="let model of goldAds" style="margin-top: 10px; margin-bottom: 10px;">
           <div class="card-gold" >
-              <span class="like">Certificación <i class="fas fa-crown"></i></span>
+              <span class="like"><i class="fas fa-crown"></i> Membresia</span>
               <div class="imgs">
-                  <img class="bottom"  [src]="model.imgs[1]" draggable="false"  />
-                  <img class="top"  [src]="model.imgs[0]" draggable="false"  />
+                  <img class="bottom" [defaultImage]="loading" [lazyLoad]="model.Photo2" draggable="false"  />
+                  <img class="top" [defaultImage]="loading" [lazyLoad]="model.Photo1" draggable="false"  />
                 </div>
               <div class="content">
                 <div style="text-align: left;">
-                  <span >{{ model.name }}</span>
-                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
-                  <small >{{ model.city }}</small>  
+                  <span >{{ model.Name | titlecase }}</span>
+                  <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> {{ model.LikeCounter }}</span><br> 
+                  <small >{{ model.StateDescription | titlecase }}</small>  
                 </div>
                 
-                <button class="profile-btn" (click)="goToProfile()" >Visitar perfil</button>
+                <button class="profile-btn" (click)="goToProfile(model.IdUser)" >Visitar perfil</button>
               </div>
             </div>
         </div>
       </div>
 
-      <div class="learn-more">
-        <h3>Conoce más acerca de nuestros niveles de Certificación</h3>
+      <!--div class="learn-more">
+        <h3>Conoce más acerca de nuestros niveles de Membresia</h3>
         <h4>(Diablitas Diamond, Gold y Silver)</h4>
         <br>
         <button type="button" class="learn-more-btn" (click)="openLevelsModal()">
           <span style="color: #fff;">Conocer más <i class="fa fa-angle-right"></i></span>
         </button>
+      </div-->
+
+      <div class="learn-more">
+        <h1>Espacio para publicidad</h1>
+        <h3>Colocar algo en esta parte para diferenciar los perfiles caros de los baratos xD</h3>
       </div>
   
       <div class="content-section">
@@ -144,20 +151,20 @@
       </div>
   
       <div class="row" >
-        <div class="col-xs-6 col-sm-3 col-lg-2 col-md-15" *ngFor="let model of silverModels" style="margin-top: 10px; margin-bottom: 10px;">
+        <div class="col-xs-6 col-sm-3 col-lg-2 col-md-15" *ngFor="let model of silverAds" style="margin-top: 10px; margin-bottom: 10px;">
           <div class="card-silver" >
-            <span class="like">Certificación <i class="fas fa-coins"></i></span>
+            <span class="like"><i class="fas fa-coins"></i> Membresia</span>
             <div class="imgs">
-                <img class="bottom"  [src]="model.imgs[1]" draggable="false"  />
-                <img class="top"  [src]="model.imgs[0]" draggable="false"  />
+                <img class="bottom" [defaultImage]="loading" [lazyLoad]="model.Photo2" draggable="false"  />
+                <img class="top" [defaultImage]="loading" [lazyLoad]="model.Photo1" draggable="false"  />
               </div>
             <div class="content">
               <div style="text-align: left;">
-                <span >{{ model.name }}</span>
-                <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> 829</span><br> 
-                <small >{{ model.city }}</small>  
+                <span >{{ model.Name | titlecase }}</span>
+                <span style="float: right;" ><i class="fa fa-heart-o" style="color: #FD297B;"></i> {{ model.LikeCounter }}</span><br> 
+                <small >{{ model.StateDescription | titlecase }}</small>  
               </div>
-              <button class="profile-btn" (click)="goToProfile()"  >Visitar perfil</button>
+              <button class="profile-btn" (click)="goToProfile(model.IdUser)"  >Visitar perfil</button>
             </div>
           </div>
         </div>

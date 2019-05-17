@@ -10,11 +10,11 @@
           <i class="fa fa-diamond" *ngIf="profile.Profile.IdPackage == 3"></i> 
           <i class="fas fa-crown" *ngIf="profile.Profile.IdPackage == 2"></i> 
           <i class="fas fa-coins" *ngIf="profile.Profile.IdPackage == 1"></i> 
-          {{ profile.Name }}
+          {{ profile.Name | titlecase }}
         </span>
         <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> {{ profile.Profile.LikeCounter | number }}</small>
       </div>
-      <span class="girl-city" >{{ profile.Profile.DescriptionTown }}, {{ profile.Profile.DescriptionState }}</span>
+      <span class="girl-city" >{{ profile.Profile.DescriptionTown | titlecase }}, {{ profile.Profile.DescriptionState | titlecase }}</span>
     </div>
   </div>
 
@@ -24,7 +24,7 @@
       <div class="profile-panel" > 
         <div class="list-item" >
           <span>Nacionalidad: </span>
-          <span >{{ profile.Profile.DescriptionNationality }}</span>
+          <span >{{ profile.Profile.DescriptionNationality | titlecase }}</span>
         </div>
         <div class="list-item" >
           <span>Edad: </span>
@@ -56,17 +56,17 @@
         </div>
         <div class="list-item" style="justify-content: flex-start;">
           <span style="flex: 100%; margin-bottom: 10px;">Zonas: </span>
-          <span style="margin-right: 10px;" *ngFor="let area of profile.Profile.Area; let i = index;" >{{ area.Description }}<span *ngIf="i < (profile.Profile.Area.length - 1)" >,</span></span>
+          <span style="margin-right: 10px;" *ngFor="let area of profile.Profile.Area; let i = index;" >{{ area.Description | titlecase }}<span *ngIf="i < (profile.Profile.Area.length - 1)" >,</span></span>
         </div>
 
         <div class="list-item" style="justify-content: flex-start;">
           <span style="flex: 100%; margin-bottom: 10px;">Lenguajes: </span>
-          <span style="margin-right: 10px;" *ngFor="let language of profile.Profile.Language; let i = index;" >{{ language.Description }}<span *ngIf="i < (profile.Profile.Language.length - 1)" >,</span></span>
+          <span style="margin-right: 10px;" *ngFor="let language of profile.Profile.Language; let i = index;" >{{ language.Description | titlecase }}<span *ngIf="i < (profile.Profile.Language.length - 1)" >,</span></span>
         </div>
 
         <div class="list-item" style="justify-content: flex-start;">
           <span style="flex: 100%; margin-bottom: 10px;">Locaciones: </span>
-          <span style="margin-right: 10px;" *ngFor="let location of profile.Profile.Location; let i = index;" >{{ location.Description }}<span *ngIf="i < (profile.Profile.Location.length - 1)" >,</span></span>
+          <span style="margin-right: 10px;" *ngFor="let location of profile.Profile.Location; let i = index;" >{{ location.Description | titlecase }}<span *ngIf="i < (profile.Profile.Location.length - 1)" >,</span></span>
         </div>
         
         <div class="list-item" >
@@ -75,8 +75,8 @@
         </div>
 
         <div class="list-item" style="justify-content: space-around;">
-          <span class="social-icon" style="background: #55ACEE;" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></span>
-          <span class="social-icon" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></span>
+          <span class="social-icon" style="background: #55ACEE;" *ngIf="profile.Profile.Twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></span>
+          <span class="social-icon" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);" *ngIf="profile.Profile.Instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></span>
         </div>     
         
       </div>
@@ -117,11 +117,11 @@
     <div class="galery-col" >
 
       <div class="tabs-content">
-        <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Detalle</div>
+        <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Información</div>
         <div class="tabs" [ngClass]="{ 'active': tab == 'galery' }" (click)="tab = 'galery'" >Galeria</div>
       </div>
 
-      <div class="profile-panel-2" [hidden]="tab != 'detail'" style="padding: 25px;">
+      <div class="profile-panel-2" *ngIf="tab == 'detail'" style="padding: 25px;">
 
         <div class="section-title" style="margin-top: 0px;">
           <span class="title"><i class="fas fa-user"></i> Sobre mi</span>
@@ -179,7 +179,7 @@
   
       </div>
 
-      <div class="profile-panel-2" [hidden]="tab != 'galery'" style="padding: 25px;" >
+      <div class="profile-panel-2" *ngIf="tab == 'galery'" style="padding: 25px;" >
 
 
         <div class="section-title" style="margin-top: 0px;" >
@@ -235,8 +235,8 @@
 
   <div class="icon-bar">
     <a href="javascript: void(0)" class="important" (click)="goToImportant()"><i class="fas fa-exclamation-triangle"></i></a> 
-    <a href="javascript: void(0)" class="twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></a> 
-    <a href="javascript: void(0)" class="instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></a> 
+    <a href="javascript: void(0)" class="twitter" *ngIf="profile.Profile.Twitter" (click)="openLink(profile.Profile.Twitter)"><i class="fa fa-twitter"></i></a> 
+    <a href="javascript: void(0)" class="instagram" *ngIf="profile.Profile.Instagram" (click)="openLink(profile.Profile.Instagram)"><i class="fa fa-instagram"></i></a> 
   </div>
 
   
@@ -244,7 +244,7 @@
 
 <!-- GALERY MODAL -->
 
-<div class="modal fade" role="dialog" id="photos">
+<div class="modal fade" role="dialog" id="photos" >
   <div class="modal-dialog" >
     <div class="modal-content">
      
@@ -252,7 +252,8 @@
 
         <div id="carrusel" style="position: relative;">
           <button type="button" data-dismiss="modal" style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; font-size: 22px; padding: 5px 10px;"><i class="fa fa-times" style="color: #fff;"></i></button>
-          <img [src]="img" draggable="false" class="c-img" />
+          
+          <img src="{{ img }}" draggable="false" class="c-img" />
 
           <button class='left-banner' (click)="prevImg()"><i class="fa fa-angle-left"></i></button>
           <button class='right-banner' (click)="nextImg()"><i class="fa fa-angle-right"></i></button>
@@ -288,16 +289,19 @@
       <div class="modal-body comment-body" >
          
 
-        <form #form="ngForm" (ngSubmit)="form.valid ? createComment(): false" autocomplete="off" novalidate >
+        <form #form="ngForm" (ngSubmit)="form.valid ? createComment(): false" autocomplete="off" novalidate id="comment-form">
 
           <div class="row" style="margin: 10px 0px;">
             <div class="col-sm-6 col-md-6" style="margin-bottom: 10px;">
               <label class="required" >Nombre:</label>
-              <input type="text" [(ngModel)]="comment.AliasName" #fname="ngModel" name="fname" required placeholder="Ejem. Ricardo" class="profile-control" />
+              <input type="text" [(ngModel)]="comment.AliasName" #fname="ngModel" name="fname" [pattern]="textPattern" required placeholder="Ejem. Ricardo" class="profile-control" />
               
               <div class="validation" *ngIf="form.submitted && fname.errors" >
                 <span [hidden]="!fname.errors.required" >
                   El nombre es requerido.
+                </span>
+                <span [hidden]="!fname.errors.pattern" >
+                  El nombre solo puede contener letras y numeros.
                 </span>
               </div>
             </div>
@@ -319,7 +323,12 @@
           <div class="row" style="margin: 10px 0px;">
             <div class="col-sm-12 col-md-12">
               <label class="required" >Comentario:</label>
-              <textarea rows="4" [(ngModel)]="comment.Comment" #fcomment="ngModel" name="fcomment" required placeholder="Ejem. Una chica realmente hermosa, super linda y divertida, la pase genial con ella recomiendo mucho salir con ella." class="profile-control" ></textarea>
+              
+              <div style="text-align: right;">
+                <span>{{ comment.Comment ? comment.Comment.length: 0 }} / 250</span>
+              </div>
+              
+              <textarea rows="4" [(ngModel)]="comment.Comment" #fcomment="ngModel" maxlength="250" name="fcomment" required placeholder="Ejem. Una chica realmente hermosa, super linda y divertida, la pase genial con ella recomiendo mucho salir con ella." class="profile-control" ></textarea>
               
               <div class="validation" *ngIf="form.submitted && fcomment.errors" >
                 <span [hidden]="!fcomment.errors.required" >
@@ -331,7 +340,7 @@
 
           <div class="row" style="margin: 10px 0px;">
             <div class="col-sm-12 col-md-12">
-              <re-captcha [(ngModel)]="comment.Captcha" (resolved)="resolved($event)" #fcaptcha="ngModel" name="fcaptcha" required [siteKey]="siteKey" ></re-captcha>
+              <re-captcha [(ngModel)]="comment.Captcha"  #fcaptcha="ngModel" name="fcaptcha" required [siteKey]="siteKey" ></re-captcha>
 
               <div class="validation" *ngIf="form.submitted && fcaptcha.errors" >
                 <span [hidden]="!fcaptcha.errors.required" >

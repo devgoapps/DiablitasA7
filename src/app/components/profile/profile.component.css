@@ -221,16 +221,22 @@ video {
 
 .card-galery {
 	overflow: hidden;
-    background: #101010;
+	background: black;
     cursor: pointer;
     border-radius: 10px;
-    border: 1px dashed #191919;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
 }
 
 .card-galery img {
+    /*min-width: 100%;
+    min-height: 300px;
+    max-width: 150%;
+    max-height: 500px;*/
     width: 100%;
     height: 250px;
-
     object-fit: cover;
     object-position: 50% 20%;
 }
@@ -298,7 +304,7 @@ video {
     min-height: 400px;
     min-width: 500px;
 
-    max-height: 600px;
+    max-height: 750px;
     max-width: 800px;
 
     object-fit: cover;
@@ -418,7 +424,7 @@ label {
     }
 
     .comment-modal {
-        width: 280px;
+        width: 100%;
     }
 
     .comment-body {
@@ -500,7 +506,7 @@ label {
     }
 
     .comment-modal {
-        width: 340px;
+        width: 100%;
     }
 
     .comment-body {
@@ -545,6 +551,10 @@ label {
     .profile-name-content {
         padding-left: 34%;
         padding-right: 10%;
+    }
+
+    .icon-bar a {
+        font-size: 30px;
     }
 }
 

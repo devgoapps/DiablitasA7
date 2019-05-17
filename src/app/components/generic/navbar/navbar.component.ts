@@ -47,7 +47,12 @@ export class NavbarComponent implements OnInit {
   goToLogin(){
     $('#login').modal('show');
     $("#login").appendTo("body");
-    $('#login-form')[0].reset();
+    
+    if($('#login-form')[0]){
+      $('#login-form')[0].reset();
+    }else if($('#password-form')[0]){
+      $('#password-form')[0].reset();
+    }
   }
 
   saveProfile(){
@@ -70,7 +75,19 @@ export class NavbarComponent implements OnInit {
         this.sessionService.login(data.Id, data.Token);
         this.router.navigate(['profile', data.Id]);
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.Message);
+        this.swa.info(error.Message, '');
+      });
+  }
+
+  recoveryPassword(){
+    this.httpService.buildPostRequest('user/recovery', { Email: this.credentials.Email } )
+      .subscribe((data: any) => {
+        this.swa.close();
+        
+        $('#login').modal('hide');
+        this.swa.info('Se te ha enviado un correo para recuperar tu contraseña.', '');
+      }, (error) => {
+        this.swa.info(error.Message, '');
       });
   }
 

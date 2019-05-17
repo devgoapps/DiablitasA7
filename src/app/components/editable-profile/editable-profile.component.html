@@ -2,18 +2,18 @@
     <form #form="ngForm" (ngSubmit)="form.valid && isValid() ? saveProfile(): initTooltips()" novalidate autocomplete="off" id="profile-form" >
 
     <div class="header-profile">
-        <img [defaultImage]="loading" [lazyLoad]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
+        <img [lazyLoad]="profile.uploadCoverPhoto" class="full-img" draggable="false" />
         <label for="coverImg" class="upload-cover-img" ><i class="fas fa-sync-alt" ></i></label>
         <div id="full-img-error" class="required-full-img" *ngIf="form.submitted && !profile.uploadCoverPhoto" ><i class="fas fa-exclamation-circle"></i></div>
         
-        <img [defaultImage]="loading" [lazyLoad]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
+        <img [lazyLoad]="profile.uploadProfilePhoto" class="profile-img" alt="profile" draggable="false" />
         <label for="profileImg" class="upload-profile-img" ><i class="fas fa-sync-alt" ></i></label>
         <div id="profile-img-error" class="required-profile-img" *ngIf="form.submitted && !profile.uploadProfilePhoto" ><i class="fas fa-exclamation-circle"></i></div>
 
         <div class="profile-name-content">
           <div class="girl-name" >
             <input type="text" [(ngModel)]="profile.Name" name="fname" #fname="ngModel" required class="profile-name" placeholder="Ejem. KarlitaLoves83"/>
-            <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> 1,356</small>
+            <small ><i class="fa fa-heart-o" style="color: rgb(255, 97, 123);"></i> {{ profile.Profile.LikeCounter | number }}</small>
             
           </div>
           <div class="validation" *ngIf="form.submitted && fname.errors" >
@@ -37,7 +37,7 @@
                 class="custom"
                 placeholder="Selecciona una ciudad"
                 notFoundText="No se encontraron ciudades."
-                (change)="getCities()"
+                (change)="getCities(true)"
                 required
                 [(ngModel)]="profile.Profile.KeyState" >
               </ng-select>
@@ -79,8 +79,8 @@
         </div>
 
         <div class="invisible">
-          <input type="file" id="profileImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.PROFILE)" accept="image/jpeg;capture=filesystem" />
-          <input type="file" id="coverImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.BACK)" accept="image/jpeg;capture=filesystem" />
+          <input type="file" id="profileImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.PROFILE)" accept="image/jpeg" capture="filesystem" />
+          <input type="file" id="coverImg" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.BACK)" accept="image/jpeg" capture="filesystem" />
         </div>
     </div>
     
@@ -95,7 +95,7 @@
                 [items]="nationalities"
                 [multiple]="false"
                 [closeOnSelect]="true"
-                [searchable]="false"
+                [searchable]="true"
                 bindLabel="Description"
                 bindValue="KeyNationality"
                 name="fnationality"
@@ -279,11 +279,23 @@
           </div>
           <div class="list-item" >
             <span>Twitter: </span>
-            <input type="text" [(ngModel)]="profile.Profile.Twitter" name="ftwitter" class="profile-ctrl" placeholder="https://twitter.com"/>
+            <input type="text" [(ngModel)]="profile.Profile.Twitter" [pattern]="urlPattern" name="ftwitter" #ftwitter="ngModel" class="profile-ctrl" placeholder="https://twitter.com"/>
+
+            <div class="validation" *ngIf="form.submitted && ftwitter.errors" >
+              <span [hidden]="!ftwitter.errors.pattern" >
+                El formato de la url no es valido.
+              </span>
+            </div>
           </div>
           <div class="list-item" >
             <span>Instagram: </span>
-            <input type="text" [(ngModel)]="profile.Profile.Instagram" name="finstagram" class="profile-ctrl" placeholder="https://instagram.com"/>
+            <input type="text" [(ngModel)]="profile.Profile.Instagram" [pattern]="urlPattern" name="finstagram" #finstagram="ngModel" class="profile-ctrl" placeholder="https://instagram.com"/>
+            
+            <div class="validation" *ngIf="form.submitted && finstagram.errors" >
+              <span [hidden]="!finstagram.errors.pattern" >
+                El formato de la url no es valido.
+              </span>
+            </div>
           </div>
           
         </div>
@@ -294,7 +306,10 @@
           </div>
   
           <div class="comment-list">
-            <div class="comment-item" *ngFor="let comment of profile.Profile?.Comment">
+            <div class="comment-item" *ngFor="let comment of profile.Profile?.Comment; let i = index;" >
+              <div style="text-align: right; display: block;">
+                <span (click)="removeComment(comment.IdComment, i)"><i class="fa fa-trash" style="color: #FD297B; font-size: 22px;"></i></span>
+              </div>
               <div>
                 <span>{{ comment.AliasName }}</span>
                 <div >
@@ -349,11 +364,11 @@
       <div class="galery-col" >
   
         <div class="tabs-content">
-          <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Detalle</div>
+          <div class="tabs" [ngClass]="{ 'active': tab == 'detail' }" (click)="tab = 'detail'" >Información</div>
           <div class="tabs" [ngClass]="{ 'active': tab == 'galery' }" (click)="tab = 'galery'" >Galeria</div>
         </div>
   
-        <div class="profile-panel-2" [hidden]="tab != 'detail'">
+        <div class="profile-panel-2" *ngIf="tab == 'detail'">
           
           <div class="section-title" style="margin-top: 0px;">
             <span class="title"><i class="fas fa-user"></i> Sobre mi</span>
@@ -371,7 +386,10 @@
   
             
           <div >
-            <textarea rows="6" [(ngModel)]="profile.Profile.Description" name="fdescription" #fdescription="ngModel" required class="description-ctrl" placeholder="Ejem. Hola soy KarlitaLoves83 soy una chica muy linda ....."></textarea>
+            <div style="text-align: right;">
+              <span>{{ profile.Profile.Description ? profile.Profile.Description.length: 0 }} / 2000</span>
+            </div>
+            <textarea rows="8" [(ngModel)]="profile.Profile.Description" name="fdescription" maxlength="2000" #fdescription="ngModel" required class="description-ctrl" placeholder="Ejem. Hola soy KarlitaLoves83 soy una chica muy linda ....."></textarea>
             
             <div class="validation" *ngIf="form.submitted && fdescription.errors" >
               <span [hidden]="!fdescription.errors.required" >
@@ -417,15 +435,15 @@
             <div class="list-item">
               <span>1 hora: </span>
 
-              <input type="text" [(ngModel)]="profile.Profile.Price1" name="fprice1" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 1,800"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price1" maxlength="8" name="fprice1" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 1,800"/>
             </div>
             <div class="list-item">
               <span>2 horas: </span>
-              <input type="text" [(ngModel)]="profile.Profile.Price2" name="fprice2" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 2,500"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price2" maxlength="8" name="fprice2" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 2,500"/>
             </div>
             <div class="list-item">
               <span>3 horas: </span>
-              <input type="text" [(ngModel)]="profile.Profile.Price3" name="fprice3" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 3,500"/>
+              <input type="text" [(ngModel)]="profile.Profile.Price3" maxlength="8" name="fprice3" prefix="$ " mask="comma_separator.0" class="price-ctrl" placeholder="Ejem. $ 3,500"/>
             </div>
             <div class="list-item">
               <span>Toda la Noche: </span>
@@ -448,7 +466,7 @@
     
         </div>
   
-        <div [hidden]="tab != 'galery'" class="profile-panel-2">
+        <div *ngIf="tab == 'galery'" class="profile-panel-2">
   
   
           <div class="section-title" style="margin-top: 0;" >
@@ -456,7 +474,7 @@
             <button type="button" class="add-btn"><label style="margin: 0px; color: #fff; padding: 10px 20px;" for="videos"><i class="fas fa-plus"></i> Agregar</label></button>
           </div>
 
-          <input type="file" style="display: contents;" id="videos" (change)="uploadMedia($event, MEDIA.VIDEO, MEDIA.GALERY)" class="invisible" accept="video/mp4;capture=filesystem" />
+          <input type="file" style="display: contents;" id="videos" (change)="uploadMedia($event, MEDIA.VIDEO, MEDIA.GALERY)" class="invisible" accept="video/mp4" capture="filesystem" />
   
           <div class="row" >
             <div class="col-md-4" *ngFor="let video of profile.videos; let i = index;">
@@ -482,7 +500,7 @@
             <button type="button" class="add-btn"><label style="margin: 0px; color: #fff;padding: 10px 20px;" for="photos"><i class="fas fa-plus"></i> Agregar</label></button>
           </div>
 
-          <input type="file" style="display: contents;" id="photos" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.GALERY)" class="invisible" accept="image/jpeg;capture=filesystem" />
+          <input type="file" style="display: contents;" id="photos" (change)="uploadMedia($event, MEDIA.IMAGE, MEDIA.GALERY)" class="invisible" accept="image/jpeg" capture="filesystem" />
   
           <div class="row" >
             <div class="col-xs-6 col-md-4" *ngFor="let photo of profile.photos; let i = index;">
@@ -555,6 +573,10 @@
 
 
 
-<div class="membership-status">
-  <span class="pay-status"><i class="fa fa-check"></i></span><span class="membership-description">Membresia: <b>DIAMOND INACTIVA</b><br><small>!Tu perfil no estara visible hasta que realices el pago de tu subscripción¡</small></span>
+<div class="membership-status" *ngIf="profile.Profile.IdStatusMembership != 1">
+  <span class="pay-status"><i class="fa fa-exclamation"></i></span> <div class="membership-description"><small>Membresia / Estatus:</small><br><b>{{ profile.Profile.IdPackage == 1 ? 'SILVER': profile.Profile.IdPackage == 2 ? 'GOLD': profile.Profile.IdPackage == 3 ? 'DIAMOND': '' }} INACTIVA</b><!--br><small>!Tu perfil no estara visible hasta que realices el pago de tu subscripción¡</small--></div>
+</div>
+
+<div class="membership-status" *ngIf="profile.Profile.IdStatusMembership == 1">
+  <span class="pay-status"><i class="fa fa-check"></i></span> <div class="membership-description"><small>Membresia / Estatus:</small><br><b>{{ profile.Profile.IdPackage == 1 ? 'SILVER': profile.Profile.IdPackage == 2 ? 'GOLD': profile.Profile.IdPackage == 3 ? 'DIAMOND': '' }} ACTIVA</b></div>
 </div>

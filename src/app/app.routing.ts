@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EditableProfileComponent } from './components/editable-profile/editable-profile.component';
 import { ActivationComponent } from './components/activation/activation.component';
+import { RecoveryPasswordComponent } from './components/recovery-password/recovery-password.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'ad/:id', component: ProfileComponent },
   { path: 'profile/:id', component: EditableProfileComponent, canActivate: [AuthGuard] },
   { path: 'activation/:token', component: ActivationComponent },
+  { path: 'change/password/:token', component: RecoveryPasswordComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 

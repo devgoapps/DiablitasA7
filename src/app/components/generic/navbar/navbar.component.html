@@ -100,13 +100,16 @@
               <span class="logo-text">Diablitas</span>
             </div>
 
-            <form #form="ngForm" (ngSubmit)="form.valid ? login(): ''" autocomplete="off" novalidate >
+            <form id="password-form" #form="ngForm" (ngSubmit)="form.valid ? recoveryPassword(): ''" autocomplete="off" novalidate >
               <div style="margin-bottom: 40px;">
-                <input type="email" [(ngModel)]="forgotCredentials" #fforgotEmail="ngModel" name="fforgotEmail" required placeholder="Introduce tu email" class="login-control" />
+                <input type="email" [(ngModel)]="credentials.Email" #fforgotEmail="ngModel" name="fforgotEmail" required [pattern]="emailPattern" placeholder="Introduce tu email" class="login-control" />
                 
                 <div class="validation" *ngIf="form.submitted && fforgotEmail.errors" >
                   <span [hidden]="!fforgotEmail.errors.required" >
                     El email es requerido.
+                  </span>
+                  <span [hidden]="!fforgotEmail.errors.pattern" >
+                    El formato del email no es valido.
                   </span>
                 </div>
               </div>
@@ -117,7 +120,7 @@
               </div>
 
               <div style="display: flex; justify-content: center;">
-                <button type="submit" class="login-btn" >Enviar contraseña</button>
+                <button type="submit" class="login-btn" >Recuperar contraseña</button>
               </div>
             </form>
   

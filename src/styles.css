@@ -14,6 +14,29 @@ html, body {
 }
 
 
+.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal{
+    background: #eee;
+}
+
+.swal2-title {
+    color: #000 !important;
+}
+
+.swal2-icon.swal2-success {
+    border-color: #FD297B !important;
+    color: #FD297B !important;
+}
+
+.swal2-icon.swal2-warning {
+    border-color: #FD297B !important;
+    color: #FD297B !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #FD297B !important;
+}
+
+
 .required:after {
     content: " *";
     color: #FD297B;

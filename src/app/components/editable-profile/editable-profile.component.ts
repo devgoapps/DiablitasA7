@@ -19,7 +19,7 @@ export class EditableProfileComponent implements OnInit {
   public img: string = '';
   public currentIndex: number = 0;
   public loading: string = 'assets/img/loading.gif';
-  public URL: string = 'http://220.1.3.203/diablitas/media/';
+  public URL: string = 'https://api.diablitas.com.mx/media/';
   //public URL: string = 'http://models.destructor.mx/media/';
   
   public profile: any = { Profile: { } };
@@ -45,7 +45,9 @@ export class EditableProfileComponent implements OnInit {
     GALERY: 3
   }
 
-  public measuresRegex = /^(\d{2,3})*-(\d{2,3})*-(\d{2,3})/;
+  public textPattern: any = /^[a-z\s0-9Ññ,.]+$/i;
+  public urlPattern: any = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+  public measuresRegex = /^(\d{2,3})-(\d{2,3})-(\d{2,3})$/;
 
   constructor(private httpService: HttpService,
               private swa: SweetAlertService,
@@ -99,11 +101,11 @@ export class EditableProfileComponent implements OnInit {
         this.profile = data;
 
         this.getMedia();
-        this.getCities();
+        this.getCities(false);
         this.getServices();
         console.log(this.profile);
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -119,7 +121,7 @@ export class EditableProfileComponent implements OnInit {
 
         this.loadMedia();
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -184,7 +186,7 @@ export class EditableProfileComponent implements OnInit {
         this.swa.success('Perfil Actualizado', 'El perfil se actualizó correctamente.');
         console.log(data);
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -236,53 +238,9 @@ export class EditableProfileComponent implements OnInit {
     }
   }
 
-  /*uploadProfilePhoto(event){
-    let target = event.target || event.srcElement;
-    if (target.files && target.files[0]) {
-        let fileReader = new FileReader();
-        fileReader.onload = () => {
-          //this.profile.uploadProfilePhoto = fileReader.result;
-          this.sendMedia(fileReader.result, 1, 2);
-        };
-        fileReader.readAsDataURL(target.files[0]);
-    }
-  }
-
-  uploadPhoto(event){
-    let target = event.target || event.srcElement;
-    if (target.files && target.files[0]) {
-        let fileReader = new FileReader();
-        fileReader.onload = () => {
-          //this.profile.photos.push({ img: fileReader.result });
-          this.sendMedia(fileReader.result, 1, 3);
-        };
-        fileReader.readAsDataURL(target.files[0]);
-    }
-  }
-
-  uploadVideo(event){
-    let target = event.target || event.srcElement;
-    if (target.files && target.files[0]) {
-        let fileReader = new FileReader();
-        fileReader.onload = () => {
-          //this.profile.videos.push({ video: fileReader.result });
-          this.sendMedia(fileReader.result, 2, 3);
-        };
-        fileReader.readAsDataURL(target.files[0]);
-    }
-  }*/
-
   removeMedia(idMedia, uri){
     this.deleteMedia(idMedia, uri);
   }
-
-  /*removeVideo(index, idMedia, uri){
-    this.deleteMedia(idMedia, uri);
-  }
-
-  removePhoto(index, idMedia, uri){
-    this.deleteMedia(idMedia, uri);
-  }*/
 
   sendMedia(base64, mediaType, mediaPosition){
     $('#profileImg').wrap('<form>').closest('form').get(0).reset();
@@ -291,11 +249,14 @@ export class EditableProfileComponent implements OnInit {
     $('#coverImg').wrap('<form>').closest('form').get(0).reset();
     $('#coverImg').unwrap();
 
-    $('#photos').wrap('<form>').closest('form').get(0).reset();
-    $('#photos').unwrap();
-
-    $('#videos').wrap('<form>').closest('form').get(0).reset();
-    $('#videos').unwrap();
+    if($('#photos').wrap('<form>').closest('form').get(0)){
+      $('#photos').wrap('<form>').closest('form').get(0).reset();
+      $('#photos').unwrap();
+    }
+    if($('#videos').wrap('<form>').closest('form').get(0)){
+      $('#videos').wrap('<form>').closest('form').get(0).reset();
+      $('#videos').unwrap();
+    }
 
     let file = this.base64toFile(base64, 'file' + new Date().getTime());
     
@@ -316,7 +277,7 @@ export class EditableProfileComponent implements OnInit {
         this.profile.Profile.Media.push({ MediaType: data.MediaType, MediaPosition: data.MediaPosition, Uri: data.Uri });
         this.getMedia();
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });    
   }
 
@@ -328,8 +289,28 @@ export class EditableProfileComponent implements OnInit {
         this.swa.close();
         this.getMedia();
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });    
+  }
+
+
+  removeComment(commentId, index){
+    this.swa.confirm('¿Deseas eliminar el comentario?', '', (response) => {
+      if(response.value){
+        this.swa.loading('Eliminando comentario ...');
+
+        this.httpService.buildPostRequest('user/public/comment/delete', { IdComment: commentId, IdProfile: this.profile.Profile.IdProfile })
+          .subscribe((data: any) => {
+            this.swa.close();
+            
+            this.swa.success('Comentario Eliminado', 'El comentario se elimino correctamente.');
+            this.profile.Profile.Comment.splice(index, 1);
+
+          }, (error) => {
+            this.swa.info(error.message, '');
+          });    
+      }
+    });
   }
 
 
@@ -349,7 +330,7 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.languages = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -361,7 +342,7 @@ export class EditableProfileComponent implements OnInit {
         
         this.locations = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -372,15 +353,17 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.states = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
-  getCities(){
-    /*this.cities = [];
-    this.profile.Profile.KeyTown = '';
-    this.zones = [];
-    this.profile.Profile.Area = [];*/
+  getCities(clean){
+    if(clean){
+      this.cities = [];
+      this.profile.Profile.KeyTown = '';
+    }
+
+    if(!this.profile.Profile.KeyState) return;
 
     let filter = { Filtering: { IdCatalog: 8, KeyState: this.profile.Profile.KeyState }, Paging: { All: 1 } };
 
@@ -388,18 +371,20 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.cities = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
   getZones(){
+    if(!this.profile.Profile.KeyState || this.profile.Profile.KeyTown) return;
+     
     let filter = { Filtering: { IdCatalog: 9, KeyState: this.profile.Profile.KeyState, KeyTown: this.profile.Profile.KeyTown }, Paging: { All: 1 } };
 
     this.httpService.buildPostRequest('catalog/get', filter)
       .subscribe((data: Array<any>) => {
         this.zones = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -410,7 +395,7 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.nationalities = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -436,7 +421,7 @@ export class EditableProfileComponent implements OnInit {
           this.services = data;
         }
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -447,7 +432,7 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.colorEyes = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -458,7 +443,7 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.colorSkin = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -469,10 +454,9 @@ export class EditableProfileComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.colorHair = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
-
 
   openModalPhotos(index){
     this.img = this.profile.photos[index].img;

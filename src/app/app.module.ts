@@ -22,9 +22,6 @@ import { AppRoutingModule } from './app.routing';
 // Auth Guard
 import { AuthGuard } from './services/auth.guard';
 
-// Pipes
-import { SafedomPipe } from './pipes/safedom.pipe';
-
 // Services
 import { HttpService } from './services/http.service';
 import { SessionService } from './services/session.service';
@@ -45,20 +42,23 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EditableProfileComponent } from './components/editable-profile/editable-profile.component';
 import { ActivationComponent } from './components/activation/activation.component';
+import { RecoveryPasswordComponent } from './components/recovery-password/recovery-password.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    ProfileComponent,
+
     NavbarComponent,
     SidebarComponent,
+    FooterComponent,
+
+    HomeComponent,
+    ProfileComponent,
     RegisterComponent,
     EditableProfileComponent,
-    SafedomPipe,
-    FooterComponent,
-    ActivationComponent
+    ActivationComponent,
+    RecoveryPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +74,9 @@ import { ActivationComponent } from './components/activation/activation.componen
     NgxMaskModule.forRoot(),
     RatingModule.forRoot(),
     RecaptchaModule.forRoot(),
-    LazyLoadImageModule
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset
+    })
   ],
   providers: [
     HttpService,

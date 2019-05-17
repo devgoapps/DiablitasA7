@@ -21,11 +21,13 @@ export class ProfileComponent implements OnInit {
   public loading: string = 'assets/img/loading.gif';
 
   public userId: number = null;
-  public URL: string = 'http://220.1.3.203/diablitas/media/';
+  public URL: string = 'https://api.diablitas.com.mx/media/';
   //public URL: string = 'http://models.destructor.mx/media/';
 
   public profile: any = { Profile: { } };
   public comment: any = {};
+  public show: boolean = false;
+  public textPattern: any = /^[a-z\s0-9Ññ,.]+$/i;
 
   constructor(private httpService: HttpService,
               private swa: SweetAlertService,
@@ -45,17 +47,17 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileById(){
-    this.swa.loading('Obteniendo perfil...');
+    //this.swa.loading('Obteniendo perfil...');
     
     this.httpService.buildGetRequest('user/public/profile/' + this.userId, '')
       .subscribe((data: any) => {
-        this.swa.close();
+        //this.swa.close();
         this.profile = data;
-
+        
         this.loadMedia();
         console.log(this.profile);
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -100,12 +102,14 @@ export class ProfileComponent implements OnInit {
           $('#comment').modal('hide');
         });
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
   openModalPhotos(index){
+
     this.img = this.profile.photos[index].img;
+      
     this.currentIndex = index;
 
     $('#photos').modal('show');
@@ -113,6 +117,9 @@ export class ProfileComponent implements OnInit {
   }
 
   openModalComment(){
+    this.comment = {};
+    $('#comment-form')[0].reset();
+
     $('#comment').modal('show');
     $("#comment").appendTo("body");
   }
@@ -128,6 +135,11 @@ export class ProfileComponent implements OnInit {
     mc.on("swiperight", () => {
       this.prevImg();
     });
+  }
+
+  ngOnDestroy(){
+    $("#photos").remove();
+    $("#comment").remove();
   }
 
   prevImg() {

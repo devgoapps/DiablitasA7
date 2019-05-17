@@ -160,13 +160,12 @@
 
 .info-container .slogan {
     display: block;
-    font-size: 4.2em;
-    margin-bottom: 25px;
+    font-size: 100px;
 }
 
 .info-container .slogan-text {
     display: block;
-    font-size: 1.4em;
+    font-size: 40px;
 }
 
 .play-btn{
@@ -195,7 +194,7 @@
     position: absolute;
     z-index: 2;
     top: 0;
-    background: radial-gradient(ellipse, rgba(24, 24, 24, 0.1) 80%, rgba(24, 24, 24, 0.3) 85%, rgba(24, 24, 24, 0.5) 90%, rgba(0, 0, 0, .8) 100%);
+    background: radial-gradient(ellipse, rgba(24, 24, 24, 0.1) 85%, rgba(24, 24, 24, 0.3) 90%, rgba(0, 0, 0, 0.5) 95%, rgba(0, 0, 0, .8) 100%);
 }
 
 
@@ -262,10 +261,19 @@ iframe {
     right: 5px;
 }
 
+
+
+.card-galery img {
+    min-width: 100%;
+    min-height: 250px;
+    max-width: 350px;
+    max-height: 350px;
+}
+
 .card-diamond {
     position: relative;
 	width: 100%;
-    height: 420px;
+    height: 470px;
 	overflow: hidden;
 	background: black;
     color: #fff;
@@ -275,15 +283,22 @@ iframe {
     border-image-source: linear-gradient(to right, rgba(0,0,0) 0%, rgb(150, 150, 150) 50%, rgba(0,0,0) 100%);
     border-image-slice: 1;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 .card-diamond .imgs img {
     position: absolute;
+    /*min-width: 100%;
+    min-height: 470px;
+    max-width: 200%;
+    max-height: 470px;*/
     width: 100%;
-    height: 420px;
-    left: 0;
-	object-fit: cover;
-	object-position: 50% 20%;
+    height: 470px;
+    object-fit: cover;
+    object-position: 50% 20%;
+    left: 50%;
+    transform: translate(-50%);
     opacity: 1; 
     transition: opacity .5s ease-in-out;
 }
@@ -297,7 +312,7 @@ iframe {
 	background: rgba(0, 0, 0, 0.6);
 	text-align: center;
     width: 100%;
-    bottom: -19%;
+    bottom: -17%;
 	transition: 0.6s ease;
     padding: 10px;
     padding-bottom: 20px;
@@ -379,16 +394,22 @@ iframe {
     border-image-source: linear-gradient(45deg, rgb(255, 153, 0), rgb(255, 238, 0));
     border-image-slice: 1;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 
 .card-gold .imgs img {
     position: absolute;
+    /*min-width: 100%;
+    min-height: 380px;
+    max-width: 100%;
+    max-height: 400px;*/
     width: 100%;
     height: 380px;
-    left: 0;
-	object-fit: cover;
+    object-fit: cover;
     object-position: 50% 20%;
+    left: 0;
     opacity: 1; 
     transition: opacity .5s ease-in-out;
 }
@@ -419,7 +440,7 @@ iframe {
 .card-silver {
 	position: relative;
 	width: 100%;
-	height: 340px;
+	height: 320px;
 	overflow: hidden;
 	background: black;
     color: #fff;
@@ -427,15 +448,21 @@ iframe {
     border-image-source: linear-gradient(45deg, rgb(73, 73, 73), rgb(255, 255, 255));
     border-image-slice: 1;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 .card-silver .imgs img {
     position: absolute;
+    /*min-width: 100%;
+    min-height: 320px;
+    max-width: 100%;
+    max-height: 350px;*/
     width: 100%;
-    height: 340px;
+    height: 320px;
+    object-fit: cover;
+    object-position: 50% 20%;
     left: 0;
-	object-fit: cover;
-	object-position: 50% 20%;
     opacity: 1; 
     transition: opacity .5s ease-in-out;
 }
@@ -449,7 +476,7 @@ iframe {
 	background: rgba(0, 0, 0, 0.6);
 	text-align: center;
     width: 100%;
-    bottom: -24%;
+    bottom: -26%;
 	transition: 0.6s ease;
     padding: 10px;
     padding-bottom: 20px;
@@ -753,17 +780,16 @@ iframe {
     }
 
     .info-container .slogan {
-        font-size: 2em;
-        margin-bottom: 25px;
+        font-size: 45px;
     }
     
     .info-container .slogan-text {
-        font-size: 1em;
+        font-size: 20px;
     }
     
     .play-btn{
         font-size: 20px;
-        margin-top: 30px;
+        margin-top: 40px;
     }
     
     /*.login-form-content {
@@ -785,6 +811,14 @@ iframe {
     .col-sm-15 {
         width: 20%;
         float: left;
+    }
+
+    .card-diamond {
+        height: 450px;
+    }
+
+    .card-diamond .imgs img {
+        height: 450px;
     }
 
     .card-diamond .content {
@@ -876,9 +910,21 @@ iframe {
     }
 }
 
-@media only screen and (min-width: 1500px) { 
+@media only screen and (min-width: 1450px) { 
     .card-full img {
         height: 800px;
+    }
+
+    .play-btn{
+        font-size: 50px;
+    }
+
+    .info-container .slogan {
+        font-size: 130px;
+    }
+    
+    .info-container .slogan-text {
+        font-size: 60px;
     }
 
     .overlay{
@@ -891,18 +937,6 @@ iframe {
 
     #diamond {
         margin: 5px 10%;
-    }
-
-    .card-diamond:hover .content {
-        transform: translate(0, -51%);
-    }
-
-    .card-gold:hover .content {
-        transform: translate(0, -51%);
-    }
-
-    .card-silver:hover .content {
-        transform: translate(0, -51%);
     }
     
     .profile-btn {
@@ -920,4 +954,66 @@ iframe {
     .info-content {
         padding: 50px 10%; 
     }
+
+    .card-diamond {
+        height: 580px;
+    }
+
+    .card-diamond .imgs img {
+        height: 580px;
+    }
+
+    .card-diamond .content {
+        bottom: -16%;
+    }
+
+    .card-diamond:hover .content {
+        transform: translate(0, -49%);
+    }
+
+    .card-diamond .content span {
+        font-size: 26px;
+    }
+    
+    .card-diamond .content small {
+        font-size: 19px;
+    }
+
+    .card-diamond .profile-btn {
+        font-size: 24px;
+    }
+
+    .card-gold {
+        height: 450px;
+    }
+
+    .card-gold .imgs img {
+        height: 450px;
+    }
+
+    .card-gold .content {
+        bottom: -19%;
+    }
+
+
+    .card-gold:hover .content {
+        transform: translate(0, -51%);
+    }
+
+    .card-silver {
+        height: 400px;
+    }
+
+    .card-silver .imgs img {
+        height: 400px;
+    }
+
+    .card-silver .content {
+        bottom: -19%;
+    }
+
+    .card-silver:hover .content {
+        transform: translate(0, -51%);
+    }
+
 }

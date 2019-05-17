@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HttpService {
 
-  	public API: string = 'http://220.1.3.203/diablitas/';
+  	public API: string = 'https://api.diablitas.com.mx/';
   	//public API: string = 'http://models.destructor.mx/';
 
 	constructor(private http: HttpClient) { }

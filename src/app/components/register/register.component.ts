@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
           this.step = 3;
         });
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.states = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
@@ -82,24 +82,28 @@ export class RegisterComponent implements OnInit {
     this.register.Profile.Zones = [];
     this.register.Profile.Area = [];
 
+    if(!this.register.Profile.KeyState) return;
+
     let filter = { Filtering: { IdCatalog: 8, KeyState: this.register.Profile.KeyState }, Paging: { All: 1 } };
 
     this.httpService.buildPostRequest('catalog/get', filter)
       .subscribe((data: Array<any>) => {
         this.cities = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 
   getZones(){
+    if(!this.register.Profile.KeyState || !this.register.Profile.KeyTown) return;
+
     let filter = { Filtering: { IdCatalog: 9, KeyState: this.register.Profile.KeyState, KeyTown: this.register.Profile.KeyTown }, Paging: { All: 1 } };
 
     this.httpService.buildPostRequest('catalog/get', filter)
       .subscribe((data: Array<any>) => {
         this.zones = data;
       }, (error) => {
-        this.swa.error('Ocurrió un problema', error.message);
+        this.swa.info(error.message, '');
       });
   }
 

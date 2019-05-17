@@ -1,7 +1,6 @@
 
 .register-main {
     padding-top: 100px;
-    /*background: linear-gradient(to right, rgba(253,41,122,1) 0%, rgba(255,88,99,1) 51%, rgba(255,102,91,1) 100%);*/
 }
 
 .register-content {
@@ -245,6 +244,8 @@ label {
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1300px) {
-    
+@media only screen and (min-width: 1500px) {
+    .register-content {
+        width: 60%;
+    }
 }
